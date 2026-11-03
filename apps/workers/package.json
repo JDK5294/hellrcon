@@ -1,0 +1,35 @@
+{
+  "name": "@app/workers",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "tsc -b && tsc -p tsconfig.test.json && node --test --experimental-strip-types test/*.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@app/access": "workspace:*",
+    "@app/bus": "workspace:*",
+    "@app/db": "workspace:*",
+    "@app/games": "workspace:*",
+    "@app/ingest": "workspace:*",
+    "@app/maps": "workspace:*",
+    "@app/payout": "workspace:*",
+    "@app/rcon-core": "workspace:*",
+    "@app/rules": "workspace:*",
+    "@app/schedule": "workspace:*",
+    "@app/shared": "workspace:*",
+    "@napi-rs/canvas": "^1.0.3",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "@types/pg": "^8.11.10",
+    "typescript": "^5.6.0"
+  }
+}

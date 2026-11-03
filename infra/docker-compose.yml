@@ -1,0 +1,322 @@
+# Local / self-hosted profile: brings the whole stack up on one machine.
+# The hosted profile reuses these service definitions but scales `workers` and
+# splits services out — deployment is config/topology, not a code fork.
+#
+# Phase 0: only postgres + redis + a placeholder `api` health service run.
+# Real service apps replace the placeholder in later phases.
+
+name: app
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    # Docker gives a container 64MB of /dev/shm, and Postgres runs its parallel queries through
+    # shared memory there. The long analytics windows (90 days, a year) are exactly the big
+    # parallel aggregates that outgrow it and fail with "could not resize shared memory segment
+    # … No space left on device" — while 7 and 30 days, being smaller, keep working. This is the
+    # standard fix; it reserves nothing up front, it only raises the ceiling.
+    shm_size: 1gb
+    # Aggressive TCP keepalives so Postgres notices dead clients within ~2 minutes. Without
+    # these, a container killed mid-migration can leave a zombie session holding the migration
+    # advisory lock for hours, wedging every api/worker boot behind it.
+    command:
+      [
+        "postgres",
+        "-c", "tcp_keepalives_idle=60",
+        "-c", "tcp_keepalives_interval=10",
+        "-c", "tcp_keepalives_count=6",
+        # Don't make every COMMIT wait for the disk. On Docker Desktop the data volume lives in a
+        # VM whose fsync costs 5-10ms, capping the whole database at roughly 100-200 commits per
+        # SECOND — and each auto-committed statement is a commit. The CRCON import's player stage
+        # runs a few statements per player, so a 400k-player history spent hours doing nothing but
+        # waiting for fsync. With synchronous_commit=off the WAL still flushes constantly, just not
+        # inside each commit; the tradeoff is that a HOST crash can lose the final sub-second of
+        # acknowledged writes — never corruption, never inconsistency (that would require
+        # fsync=off, which this deliberately is NOT). For this app that window is benign: live log
+        # ingest re-reads the game server's recent log lines and dedupes on the next 10s poll, so
+        # lost events reappear on their own, and the import is idempotent end to end.
+        "-c", "synchronous_commit=off",
+      ]
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app}
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+    # Published on THIS machine only (127.0.0.1). The app reaches the database over the compose
+    # network, so the host port exists only for local maintenance tools — and published on every
+    # interface it was reachable from the network, which on a VM with a public address means the
+    # internet: Docker writes its own firewall rules, so ufw never sees the port to block it.
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # This machine only, like Postgres above — Redis here has no password at all.
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # The real API (Phase 2): serves the REST API + the web panel. Uses the in-memory
+  # repository for now; the Postgres repo drops in behind the same interface next.
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      # The commit being built, exported by start.bat / start.sh before compose runs. Empty on a
+      # manual `docker compose` invocation — the stamp then just doesn't render in the panel.
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-}
+        GIT_BRANCH: ${GIT_BRANCH:-}
+        GIT_REPO: ${GIT_REPO:-}
+    restart: unless-stopped
+    # Inject everything from infra/.env into the container — this is how SERVER_<n>_* (server
+    # auto-discovery) and DISCORD_TOKEN reach the app. `environment:` below still wins for the
+    # keys it sets (e.g. the composed DATABASE_URL).
+    env_file:
+      - .env
+    environment:
+      PORT: 8080
+      # API_PORT in infra/.env is the port on the HOST (the mapping below), but env_file hands it in
+      # here too, and the app reads it before PORT. Pinned, so a host port of 8081 does not move the
+      # port the API listens on in here: the mapping, the healthcheck and the tunnel all expect 8080.
+      API_PORT: 8080
+      # Empty unless infra/.env sets one: the app then signs logins with a key of its own, made on
+      # first boot and kept in the database. (The old default here was a public placeholder.)
+      SESSION_SECRET: ${SESSION_SECRET:-}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-}
+      WEB_ROOT: /app/apps/panel/out
+      DATABASE_URL: postgres://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@postgres:5432/${POSTGRES_DB:-app}
+      REDIS_URL: redis://redis:6379
+      # CRCON backup archive lives on this shared volume (the worker writes it, the API exports it),
+      # so it survives restarts. Both services must mount the same path.
+      CRCON_BACKUP_DIR: /data/crcon-backups
+      # The Apply buffers per-player working sets while walking a multi-million-row archive
+      # (presence pairing, camera pairing, id caches). Node picks its default heap ceiling from
+      # what it can see of the machine, and inside a container that guess can land low enough for
+      # a 17M-row import to die mid-run with no error the app ever gets to log — the process is
+      # simply gone. Pin the ceiling explicitly so the headroom is a decision, not a guess.
+      NODE_OPTIONS: --max-old-space-size=4096
+      # The plugins in installed-plugins/, mounted below. PLUGINS_STATE is what is there, at which
+      # commit, as start.bat / start.sh found it: a change in it changes this container's settings,
+      # so compose recreates the api — and plugins are only read when it starts.
+      PLUGINS_DIR: /data/plugins
+      PLUGINS_STATE: ${PLUGINS_STATE:-}
+    volumes:
+      - crconbackups:/data/crcon-backups
+      - ../installed-plugins:/data/plugins:ro
+      # Backups and trim archives land HERE — bind-mounted to a plain `backups` folder next to
+      # the repo, so the files are visible on the host machine the moment they finish writing:
+      # copy them off the box, back them up again, or carry one to a fresh install. Without this
+      # mount they sat in the container's writable layer and vanished on the next rebuild.
+      - ${BACKUPS_DIR:-../backups}:/data/backups
+    ports:
+      - "${API_PORT:-8080}:8080"
+    # Postgres and Redis report health; the API did not, so `docker compose ps` said "Up" for a
+    # container that might be listening, still migrating, or wedged — and the start script's only
+    # other signal was a probe from the HOST, which fails for reasons that have nothing to do with
+    # the app (wrong API_PORT, the port already taken, no curl). Two independent signals separate
+    # those: unhealthy here means the app; healthy here plus a failing host probe means the hop
+    # between the host and the container.
+    #
+    # `node -e` rather than curl or wget: this image is node:22-alpine, so node is the one thing
+    # certain to exist, and fetch is global from Node 18. 127.0.0.1 and not localhost — inside the
+    # container that name can resolve to ::1 first, where nothing is bound.
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      # Twenty-four retries at five seconds is two minutes — the same budget the start script gives
+      # it, so the two never disagree about whether boot has had long enough.
+      retries: 24
+      start_period: 10s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Continuous ingestion: streams each configured server's log into the event store.
+  # Reuses the same image as the API (builds the whole workspace) with a different command.
+  worker:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-}
+        GIT_BRANCH: ${GIT_BRANCH:-}
+        GIT_REPO: ${GIT_REPO:-}
+    restart: unless-stopped
+    command: ["node", "apps/workers/dist/index.js"]
+    env_file:
+      - .env
+    environment:
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-}
+      DATABASE_URL: postgres://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@postgres:5432/${POSTGRES_DB:-app}
+      # Same Redis as the API: the worker publishes live events here, the API's plugins subscribe.
+      REDIS_URL: redis://redis:6379
+      # Same shared volume + path as the API — the worker writes CRCON backup archives here.
+      CRCON_BACKUP_DIR: /data/crcon-backups
+      # The same explicit heap ceiling the api carries, and for a sharper reason: the CRCON database
+      # export is run as `docker compose exec worker node ...`, which starts a BRAND NEW process in
+      # this container. It inherits the service's environment and nothing else — so a ceiling set
+      # only on the api left the export on Node's own guess, which inside a container landed at
+      # ~2 GB and aborted the run outright ("JavaScript heap out of memory"). Set it where the
+      # process actually runs.
+      NODE_OPTIONS: --max-old-space-size=4096
+    volumes:
+      - crconbackups:/data/crcon-backups
+      # Same host folder as the api — both write under /data/backups (trim archives today,
+      # whatever the worker learns to back up tomorrow), and one folder on the host holds it all.
+      - ${BACKUPS_DIR:-../backups}:/data/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Discord relay bot: subscribes to the event bus and posts live activity to Discord. Idles
+  # unless DISCORD_TOKEN + a channel id are set in .env. Reuses the same image as the API.
+  discord:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-}
+        GIT_BRANCH: ${GIT_BRANCH:-}
+        GIT_REPO: ${GIT_REPO:-}
+    restart: unless-stopped
+    command: ["node", "apps/discord/dist/index.js"]
+    env_file:
+      - .env
+    environment:
+      # Receives the worker's events over the shared Redis bus.
+      REDIS_URL: redis://redis:6379
+      # The SAME composed DATABASE_URL the api and worker get. Without it the bot fell back to the
+      # empty in-memory store — silently. Every panel-configured relay route and every alert config
+      # (admin pings, watchlist joins, automation reports) lives in that database, so the shipped
+      # stack relayed only through the legacy env-var channel and never sent a single alert, while
+      # the panel showed the configuration as saved and the bot logged nothing wrong.
+      DATABASE_URL: postgres://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@postgres:5432/${POSTGRES_DB:-app}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # The CRCON backup's OWN database, brought up from the db_data folder you paste next to
+  # start.bat — so a multi-gigabyte history is imported by copying a folder, never by uploading.
+  #
+  # Gated behind the `crcon-import` profile so it never runs unless you are actually importing;
+  # start.bat turns the profile on by itself when it finds the folder (same pattern as the
+  # tunnel). To run it by hand:
+  #   docker compose --env-file infra/.env -f infra/docker-compose.yml --profile crcon-import up -d
+  #
+  # Deliberately NOT published to a host port: nothing outside this stack can reach it, which is
+  # what makes the entrypoint's trust auth safe. Run the importer inside the worker container,
+  # where DATABASE_URL and the archive volume already are — see docs/crcon-db-import.md.
+  crcon-db:
+    image: ${CRCON_DB_IMAGE:-postgres:12-alpine}
+    profiles: ["crcon-import"]
+    restart: "no"
+    volumes:
+      # Your pasted backup, mounted READ-ONLY: the import can never alter it.
+      - ${CRCON_DB_SEED:-../crcon-db-data}:/seed:ro
+      - crcondbdata:/var/lib/postgresql/data
+      - ./crcon-db-entrypoint.sh:/crcon-db-entrypoint.sh:ro
+    # Piped through `tr -d '\r'` rather than executed directly: a Windows git checkout of a
+    # bind-mounted .sh file commonly rewrites its line endings to CRLF (core.autocrlf, an
+    # out-of-the-box default), and Alpine's ash reads the resulting "set -e\r" as the illegal
+    # option "-e<CR>" and refuses to start. Stripping CR before the script ever reaches the
+    # shell's parser makes this immune to the host's line-ending handling entirely — no git
+    # setting on either side needs to be correct for it to work.
+    entrypoint: ["/bin/sh", "-c", "tr -d '\\r' < /crcon-db-entrypoint.sh | sh"]
+    healthcheck:
+      # Long start_period: the first boot copies the whole backup before Postgres even starts.
+      #
+      # Probe as CRCON's own identity (role `rcon`, database `rcon`), NOT `postgres`. A CRCON
+      # cluster is created with HLL_DB_USER as its superuser and has no `postgres` role at all, and
+      # pg_isready is only asking "is the postmaster answering" — it reports success as soon as the
+      # server responds to the startup packet, whether or not the role exists. So probing as
+      # `postgres` passed the healthcheck while making the server log
+      #   FATAL: role "postgres" does not exist
+      # on EVERY probe: once per interval, forever, for as long as the import database is up. A
+      # single import session buried the whole stack's logs under hundreds of red FATAL lines that
+      # named nothing actually wrong — the container was healthy the entire time.
+      #
+      # For the same reason a `||` fallback chain is decorative: the first probe always exits 0, so
+      # nothing after it ever runs. One probe, with the identity the cluster actually has.
+      # `-d rcon` matters too — without it libpq defaults the database name to the user name, and a
+      # backup whose HLL_DB_USER is not `rcon` would log `database "<user>" does not exist` instead.
+      test: ["CMD-SHELL", "pg_isready -q -U ${CRCON_DB_USER:-rcon} -d ${CRCON_DB_NAME:-rcon}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 600s
+
+  # Your own domain with HTTPS — Administration → Online access → Your own domain. On the `domain`
+  # profile, which a VM install turns on (install.sh writes COMPOSE_PROFILES=domain into infra/.env);
+  # a home PC puts the panel online with the Cloudflare tunnel instead, which the API runs itself.
+  # The domain is set in the panel: this proxy fetches a certificate from Let's Encrypt the first
+  # time an address is visited, and only for the addresses the panel says are its own
+  # (infra/Caddyfile). Ports 80 and 443 must be open to the internet for that.
+  caddy:
+    image: caddy:2.11-alpine
+    restart: unless-stopped
+    profiles: ["domain"]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # The certificates, kept so a restart never asks Let's Encrypt again.
+      - caddydata:/data
+    depends_on:
+      - api
+
+  # The Cloudflare tunnel as its own container — how older installs ran it, from
+  # CLOUDFLARE_TUNNEL_TOKEN in infra/.env. The API runs the tunnel itself now, from the token
+  # saved in the panel (Administration → Online access; an old .env token is carried over on the
+  # first start). start.bat / start.sh remove this container once the panel's own tunnel is
+  # connected, and start it only as a fallback while the panel's cannot connect.
+  #
+  # Gated behind the `tunnel` profile so it NEVER runs unconfigured — cloudflared exits without
+  # a token, which would crash-loop.
+  cloudflared:
+    image: cloudflare/cloudflared:2026.10.0
+    restart: unless-stopped
+    profiles: ["tunnel"]
+    # Passed as an env var rather than a command argument so the token isn't visible in
+    # `docker ps` / the host process list. Defaulted to empty on purpose: compose interpolates
+    # EVERY service regardless of profile, so a `${VAR:?}` here would break the whole file for
+    # anyone not using a tunnel. The profile gate is what keeps this from running tokenless.
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
+    command: ["tunnel", "--no-autoupdate", "run"]
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  redisdata:
+  # The CRCON backup's database, copied off the pasted folder on first start of the
+  # `crcon-import` profile. Delete this volume to re-seed from a different backup:
+  #   docker volume rm app_crcondbdata
+  crcondbdata:
+  # Persistent CRCON backup archives, shared between the api and worker services.
+  crconbackups:
+  # The HTTPS proxy's certificates (the `domain` profile).
+  caddydata:

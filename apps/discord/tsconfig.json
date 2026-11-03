@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "references": [
+    {
+      "path": "../../packages/access"
+    },
+    {
+      "path": "../../packages/bus"
+    },
+    {
+      "path": "../../packages/db"
+    },
+    {
+      "path": "../../packages/shared"
+    }
+  ],
+  "include": [
+    "src"
+  ]
+}

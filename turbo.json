@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "out/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {},
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    // Strict env mode is doing real work here: test tasks DON'T declare DATABASE_URL, so turbo
+    // strips it and every app's suite runs on the in-memory store it was written for (the API
+    // suites share one process-wide store per file — pointing them all at one live database
+    // makes them collide). The one package whose tests ARE about Postgres declares the env in
+    // its own turbo.json: packages/db.
+    "test": {
+      "dependsOn": ["^build"]
+    }
+  }
+}

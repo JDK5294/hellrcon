@@ -1,0 +1,1532 @@
+===== PAGE 1 =====
+Hell Let Loose Vietnam - RCON 
+ 
+Request Json Formatting 
+HEADER MAGIC NUMBER, 
+HEADER_ID, 
+HEADER_CONTENT_LENGTH, 
+{ 
+  "AuthToken": "bc711e97-e32e-4033-bf97-a8028a10cb94", 
+  "Version": 2, 
+  "Name": "command_name", 
+  "ContentBody": “command__data” 
+} 
+ 
+Request Parameters 
+Name Type Description 
+AuthToken string The AuthToken is a GUID 
+which is created and 
+retrieved from the Login 
+request. The token must be 
+sent with any server 
+requests, except for 
+ServerConnect and 
+Login. The token is verified 
+against the sever and will 
+return a 401 status if no 
+token is sent or the token is 
+invalid. 
+Version integer As RCON tools are expanded 
+commands may need 
+updating. 
+Name string Name of the command to 
+execute on the server.  
+ContentBody string Any data requirements for 
+the request.  
+ 
+Response Json Format 
+HEADER MAGIC NUMBER, 
+HEADER_ID, 
+HEADER_CONTENT_LENGTH, 
+{ 
+  "StatusCode": 200, 
+  "StatusMessage": "Successfully performed request." 
+  "Version": 2, 
+  "Name": "command_name", 
+  "ContentBody": "command_response_data" 
+} 
+===== PAGE 2 =====
+Fixed Packet Header 
+The header is a 12-byte fixed header that includes an ID and the content length of the Json 
+package. 
+Name Type Description 
+Magic Number 
+ 
+unsigned integer Constant integer each 
+message must start with.  
+ID unsigned integer Each response has its own 
+ID. This ID is returned in the 
+response. 
+Content Length unsigned integer This is the length of the Json 
+package, excluding the fixed 
+header. 
+ 
+Magic number value: 0xDE450508 
+ 
+Protocol Violation & Limitations 
+Triggering violations will cause the server to reject the connection. For certain violations the 
+server will return an error message.  
+Violation Type Error Message 
+Content exceeds 4KB 
+ 
+"{error: request_too_large}" 
+ 
+Content is empty "{error: empty_request}" 
+ 
+Magic is invalid N/A 
+ 
+ 
+To avoid excessive memory usage on the game thread when processing commands, the server 
+enforces several throttling limits that spread command processing across multiple ticks. Per 
+tick, the server will process a maximum of 16 KB of command data, spend no more than 1 
+millisecond processing commands, and handle up to 64 commands. Any additional commands 
+are deferred to subsequent ticks. 
+ 
+ 
+ 
+  
+===== PAGE 3 =====
+Response Parameters 
+Name Type Description 
+StatusCode integer The status of the server 
+response whilst executing 
+commands. 
+StatusMessage string Description of the status 
+response 
+Version integer Version of the command that 
+was processed. 
+Name string Name of the command that 
+was processed.  
+ContentBody string Any response data from the 
+server will be assigned in the 
+body.  
+ 
+Status Codes 
+Server responses contain a status code, the status depends on whether the command was 
+successfully executed on the server or if the command encountered an error. 
+Code Description 
+200 OK 
+401 Unauthorized 
+400 Bad Request 
+500 Internal Error 
+ 
+ 
+  
+===== PAGE 4 =====
+Connecting to RCON V2 
+The server connect command will allow the server to start processing RCON V2 commands. 
+Included in the server response body will be the XOR key used for encrypting/decrypting request 
+and responses. The server connect command is currently the only non-encrypted command.     
+ 
+Request Example 
+{ 
+  "AuthToken": "", 
+  "Version": 2, 
+  "Name": “ServerConnect", 
+  "ContentBody": “” 
+} 
+ 
+Response Example 
+{ 
+  "statusCode": 200, 
+  "StatusMessage": "Successfully performed request.", 
+  "version": 2, 
+  "name": " ServerConnect", 
+  "contentBody": "OlguIHEAa4arqoOcaT0GbA\u003d\u003d " 
+} 
+ 
+XOR  
+XOR is the method in which messages are encrypted between the server, client and visa versa. 
+When sending requests to the server the byte data must be encoded with the XOR key before 
+sending and any responses received must be decoded before it is read, the exception to this is 
+the ServerConnect command where the XOR is retrieved. Note: The XOR key is formatted as 
+Base64 when retrieved from the server and will need converting from Base64 before being used 
+to encrypt requests. 
+ 
+C# Example 
+public static byte[] XORCipher(byte[] bytes) 
+{ 
+    for (int i = 0; i < bytes.Length; i++) 
+    { 
+        bytes[i] ^= m_XORKey[i % m_XORKey.Length]; 
+    } 
+ 
+    return bytes; 
+} 
+ 
+  
+===== PAGE 5 =====
+Logging in to RCON  
+Most commands require authentication before they can be executed. Calling the login 
+command with a corresponding password will authenticate the server and generate a 
+authentication token which is included in the response body. 
+ 
+Request Example 
+{ 
+  "AuthToken": "", 
+  "Version": 2, 
+  "Name": “Login", 
+  "ContentBody": “[PASSWORD]” 
+} 
+ 
+Response Example 
+{ 
+  "statusCode": 200, 
+  "StatusMessage": "Successfully performed request.", 
+  "version": 2, 
+  "name": "Login", 
+  "contentBody": "F95C9BC14AA1D8AE8BC328BEF230DF52" 
+} 
+ 
+  
+===== PAGE 6 =====
+RCON Commands 
+Name ID Description 
+Add Admin AddAdmin 
+ 
+Add a player to the admin 
+list. 
+Remove Admin RemoveAdmin Remove player from admin 
+privileges. 
+Get Admin Log 
+ 
+GetAdminLog 
+ 
+Retrieve admin log. 
+Change Map 
+ 
+ChangeMap 
+ 
+Select a map to change the 
+server map. 
+ 
+Set Sector Layout 
+ 
+SetSectorLayout 
+ 
+Configure the sector layout 
+for a specified map. 
+ 
+Get Sector Layout GetSectorLayout Gets configurations for 
+map sector layouts. 
+Remove Sector 
+Layout 
+RemoveSectorLayout Removed the sector layout 
+for a specified map. 
+Add Map to Rotation AddMapToRotation Add a new map to the map 
+rotation at an index. 
+Remove Map From 
+Rotation 
+ 
+RemoveMapFromRotation Remove map from the map 
+rotation at an index. 
+Add Map to Sequence AddMapToSequence Add map to server map 
+sequence. 
+Set Map Shuffle 
+Enabled 
+ 
+SetMapShuffleEnabled 
+ 
+Randomises the server 
+map queue. 
+Remove Map From 
+Sequence 
+ 
+RemoveMapFromSequence Remove map from the 
+server map sequence. 
+Move Map in 
+Sequence 
+ 
+MoveMapInSequence 
+ 
+Change the position on a 
+map in the server queue 
+ 
+Server Connect ServerConnect Establishes an Rcon V2 
+connection with the server. 
+Login Login Authenticates a client to 
+access the user. 
+Get Displayable 
+Commands 
+GetDisplayableCommands Retrieves the list of RCON 
+commands. 
+Get Admin Groups GetAdminGroups 
+ 
+Retrieves a list of all admin 
+groups. 
+Get Admin Users GetAdminUsers 
+ 
+Retrieves a list of all admin 
+user details. 
+Get Permanent Bans GetPermanentBans 
+ 
+Retrieves a list of all 
+permanently enforced 
+bans. 
+Get Temporary Bans GetTemporaryBans 
+ 
+Retrieves a list of all 
+temporary enforced bans. 
+Force Team Switch ForceTeamSwitch 
+ 
+Forces a player to switch 
+teams. 
+===== PAGE 7 =====
+Set Team Switch 
+Cooldown 
+ 
+SetTeamSwitchCooldown 
+ 
+Set cooldown time for 
+team switching. 
+Get Team Switch 
+Cooldown 
+GetTeamSwitchCooldown Retrieves the team switch 
+cooldown. 
+ 
+Set Max Queued 
+Players 
+SetMaxQueuedPlayers 
+ 
+Set the maximum number 
+of queued players. 
+ 
+Set Idle Kick 
+Duration 
+ 
+SetIdleKickDuration 
+ 
+Set how long a player can 
+be idle before being kicked. 
+ 
+Get Kick Idle 
+Duration 
+ 
+GetKickIdleDuration 
+ 
+Retrieves the kick idle 
+duration value. 
+Set Notice Message 
+ 
+SetNoticeMessage 
+ 
+Send a message to the 
+server. 
+ 
+Get Server 
+Information 
+ 
+GetServerInformation 
+ 
+Retrieves various server 
+information. 
+Server Broadcast 
+ 
+ServerBroadcast 
+ 
+Create a message to 
+broadcast to the server. 
+ 
+Set High Ping 
+Threshold 
+ 
+SetHighPingThreshold 
+ 
+Set the ping (in ms) that is 
+considered too high for 
+smooth gameplay. 
+ 
+Get High Ping 
+Threshold 
+ 
+GetHighPingThreshold Retrieves the high ping 
+threshold value. 
+Get Client 
+Reference Data 
+ 
+GetClientReferenceData 
+ 
+Retrieves argument details 
+for a specific command. 
+Message Player 
+ 
+MessagePlayer 
+ 
+Create a message to send 
+to a player in game. 
+ 
+Punish Player 
+ 
+PunishPlayer 
+ 
+Select a player to punish by 
+killing. 
+ 
+Kick Player 
+ 
+KickPlayer 
+ 
+Select player to kick and 
+add a reason. 
+ 
+Temporary Ban 
+Player 
+ 
+TemporaryBanPlayer 
+ 
+Temporary ban a player 
+from the server 
+ 
+Remove Temporary 
+Ban 
+ 
+RemoveTemporaryBan 
+ 
+Remove a temporary ban 
+from a player. 
+ 
+Permanent Ban 
+Player 
+ 
+PermanentBanPlayer 
+ 
+Permanently ban a player 
+from the server. 
+ 
+===== PAGE 8 =====
+Remove Permanent 
+Ban 
+ 
+RemovePermanentBan 
+ 
+Remove permanent ban on 
+a player 
+ 
+Set Auto Balance 
+Enabled 
+ 
+SetAutoBalanceEnabled 
+ 
+Enable or disable the auto 
+balance. 
+ 
+Get Auto Balance 
+Enabled 
+GetAutoBalancedEnabled Returns whether the auto 
+balance is enabled or not. 
+ 
+Set Auto Balance 
+Threshold 
+ 
+SetAutoBalanceThreshold 
+ 
+Set the threshold value for 
+teams when using auto 
+balance. 
+ 
+Get Auto Balance 
+Threshold 
+GetAutoBalanceThreshold Retrieves the auto balance 
+threshold. 
+ 
+Reset Vote to Kick 
+Threshold 
+ 
+ResetVoteKickThreshold 
+ 
+Remove custom vote to 
+kick thresholds and revert 
+to default. 
+ 
+Set Vote Kick 
+Enabled 
+ 
+SetVoteKickEnabled 
+ 
+Enable or disable the vote 
+to kick functionality. 
+ 
+Get Vote to Kick 
+Enabled 
+ 
+GetVoteKickEnabled Retrieves whether the vote 
+to kick has been enabled or 
+not. 
+ 
+Set Vote to Kick 
+Threshold 
+ 
+SetVoteKickThreshold 
+ 
+Set the vote to kick 
+threshold. 
+ 
+Get Vote to Kick 
+Threshold 
+ 
+GetVoteKickThreshold Retrieves the vote to kick 
+threshold value. 
+Add Banned Words AddBannedWords Adds words to the custom 
+profanity list. 
+Remove Banned Words RemoveBannedWords Removes words from the 
+custom profanity list. 
+Add VIP AddVip Give a player VIP status. 
+ 
+Remove VIP RemoveVip Remove VIP status from a 
+player. 
+ 
+Set VIP Slot Count SetVipSlotCount 
+ 
+Set the VIP slot count for 
+the server. 
+ 
+Set Match Timer SetMatchTimer 
+ 
+Sets the match timer for a 
+specific game mode. 
+Remove Match Timer RemoveMatchTimer 
+ 
+Removes the custom 
+match timer for a specific 
+map. 
+===== PAGE 9 =====
+Set Match Warmup 
+Timer 
+SetWarmupTimer 
+ 
+Sets the warmup timer for 
+a specific game mode. 
+Remove Match Warmup 
+Timer 
+RemoveWarmupTimer 
+ 
+Removes the warmup 
+timer for a specific game 
+mode. 
+Set Dynamic Weather 
+Enabled 
+ 
+SetDynamicWeatherEnabled 
+ 
+Enables or disables 
+dynamic weather for a 
+certain map. 
+Get Server 
+Changelist 
+GetServerChangelist 
+ 
+Retrieves the change list 
+number for the server. 
+Remove Player From 
+Platoon 
+RemovePlayerFromPlatoon 
+ 
+Removes a player from 
+their platoon. 
+Disband Platoon 
+ 
+DisbandPlatoon 
+ 
+Disbands a platoon and 
+removes all players. 
+ 
+ 
+ 
+  
+===== PAGE 10 =====
+Add Admin 
+Adds a player to an admin group. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+AdminGroup 
+ 
+string 
+Comment 
+ 
+string 
+ 
+ 
+Remove Admin 
+Removes the admin privileges from a player. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+ 
+ 
+Get Admin Log 
+Retrieves the admin log for the specified interval time (seconds). 
+Arguments 
+Parameter Type 
+LogBackTrackTime Int32 
+ 
+Filters 
+ 
+string 
+ 
+ 
+Change Map 
+Triggers a map change on the server. 
+Arguments 
+Parameter Type 
+MapName string 
+ 
+ 
+===== PAGE 11 =====
+Set Sector Layout 
+Creates a configuration on the server for a custom sector layout for a specified map.  
+Arguments 
+Parameter Type 
+MapId 
+ 
+string 
+Sector_1 Int32 
+ 
+Sector_2 
+ 
+Int32 
+ 
+Sector_3 
+ 
+Int32 
+ 
+Sector_4 
+ 
+Int32 
+ 
+Sector_5 
+ 
+Int32 
+ 
+ 
+Get Sector Layout 
+Retrieves a list of map sector configurations from the server. 
+Response 
+Name Type Description 
+Entries 
+ 
+array List of map configurations. 
+Each entry has a MapId and 
+Sectors array for the config.   
+ 
+Remove Sector Layout 
+Removes a map sector configuration from the server. 
+Parameter Type 
+MapId 
+ 
+string 
+ 
+Add Map to Rotation 
+Adds a map to the map rotation at a specified index. 
+Arguments 
+Parameter Type 
+MapName string 
+ 
+Index 
+ 
+Int32 
+ 
+ 
+===== PAGE 12 =====
+Remove Map from Rotation 
+Removes a map from the rotation list at a specified index. 
+Arguments 
+Parameter Type 
+Index Int32 
+ 
+ 
+ 
+  
+===== PAGE 13 =====
+Add Map to Sequence 
+Adds a map to the map sequence at a specified index. 
+Arguments 
+Parameter Type 
+MapName string 
+ 
+Index 
+ 
+Int32 
+ 
+ 
+Remove Map from Sequence 
+Remove a map from the map sequence at a specified index. 
+Arguments 
+Parameter Type 
+Index Int32 
+ 
+ 
+ 
+Set Map Shuffle Enabled 
+Randomises the map sequence. 
+Arguments 
+Parameter Type 
+Enable boolean 
+ 
+ 
+ 
+Move Map in Sequence 
+Moves a current map in the sequence to another location. 
+Arguments 
+Parameter Type 
+CurrentIndex Int32 
+ 
+NewIndex 
+ 
+Int32 
+ 
+  
+===== PAGE 14 =====
+Server Connect 
+Establishes connection with server and creates an RCON V2 session. 
+Response 
+Returns the XOR Key in the content body. 
+ 
+ 
+Login 
+Authenticates the RCON client with the server. 
+Arguments 
+Password is passed directly in the content body. 
+ 
+ 
+Get Displayable Commands 
+Retrieves a list of all commands in RCON V2. 
+Response 
+Name Type Description 
+Entries 
+ 
+array List of commands available 
+in V2. 
+ 
+Command Entry 
+Name Type Description 
+Id 
+ 
+string ID of the command. 
+FriendlyName  string Friendly name of the 
+command. 
+IsClientSupported 
+ 
+boolean Whether or not 
+ClientReferenceData is 
+supported for this command. 
+ 
+  
+===== PAGE 15 =====
+Get Admin Groups 
+Retrieves a list of all admin groups. 
+Response 
+Name Type Description 
+GroupNames 
+ 
+ 
+String array List of admin group names. 
+ 
+ 
+Get Admin Users 
+Retrieves a list of all admin users. 
+Response 
+Name Type Description 
+AdminUsers 
+ 
+ 
+array List of admin user details. 
+ 
+Command Entry 
+Name Type Description 
+UserId 
+ 
+string ID of the admin user. 
+Group 
+  
+string Group the admin belongs to. 
+Comment 
+ 
+string User comment. 
+ 
+ 
+  
+===== PAGE 16 =====
+Get Permanent Bans 
+Retrieves a list of all permanent player bans. 
+Response 
+Name Type Description 
+BanList 
+ 
+ 
+array List of permanent banned 
+players. 
+ 
+Command Entry 
+Name Type Description 
+UserId 
+ 
+String Player ID. 
+UserName 
+  
+String Username for the banned 
+player. 
+TimeOfBanning 
+ 
+String Time of the ban. 
+DurationHours 
+ 
+Int32 Duration of the ban. 
+BanReason 
+ 
+String Reason for the ban. 
+AdminName 
+ 
+String Name of admin who set ban.  
+ 
+Get Temporary Bans 
+Retrieves a list of all temporary player bans. 
+Response 
+Name Type Description 
+BanList 
+ 
+ 
+array List of permanent banned 
+players. 
+ 
+Command Entry 
+Name Type Description 
+UserId 
+ 
+String Player ID. 
+UserName 
+  
+String Username for the banned 
+player. 
+TimeOfBanning 
+ 
+String Time of the ban. 
+DurationHours 
+ 
+Int32 Duration of the ban. 
+BanReason 
+ 
+String Reason for the ban. 
+AdminName 
+ 
+String Name of admin who set ban.  
+===== PAGE 17 =====
+Force Team Switch 
+Forces a player to switch team. Can force a player to switch either on death or immediately. 
+Arguments 
+Parameter Type Description 
+PlayerId 
+ 
+String 
+ 
+ 
+ForceMode UInt8 0 = Force switch on 
+death. 
+ 
+1 = Force switch 
+immediately. 
+ 
+ 
+Set Team Switch Cooldown 
+Sets the cooldown time for allowing players to switch teams. 
+Arguments 
+Parameter Type 
+TeamSwitchTimer Int32 
+ 
+ 
+ 
+Get Team Switch Cooldown 
+Retrieves the cooldown time for allowing players to switch teams. 
+Response 
+Name Type Description 
+TeamSwitchTimer 
+ 
+Int32 Team switch cooldown timer 
+ 
+ 
+Set Max Queued Players 
+Sets the max number of players allowed to queue for the server. 
+Arguments 
+Parameter Type 
+MaxQueuedPlayers Int32 
+ 
+ 
+===== PAGE 18 =====
+Set Idle Kick Duration 
+Sets the duration for kicking players for idling.  
+Arguments 
+Parameter Type 
+IdleTimeoutMinutes Int32 
+ 
+ 
+ 
+Get Idle Kick Duration 
+Retrieves the duration for kicking players for idling.  
+Response 
+Name Type Description 
+IdleTimeoutMinutes 
+ 
+Int32 Team switch cooldown timer 
+ 
+ 
+Send Notice Message 
+Displays a notice message to all players on the server and to players upon joining the server. 
+Arguments 
+Parameter Type 
+Message string 
+ 
+ 
+ 
+Send Server Message 
+Displays a message to all players on the server. 
+Arguments 
+Parameter Type 
+Message string 
+ 
+ 
+ 
+  
+===== PAGE 19 =====
+Get Server Information 
+Retrieves various information from the server. 
+Arguments 
+Parameter Type 
+Name string 
+ 
+Value 
+ 
+string 
+ 
+Request Example 
+{ 
+  "AuthToken": "f95c9bc1-4aa1-d8ae-8bc3-28bef230df52", 
+  "Version": 2, 
+  "Name": "ServerInformation", 
+  "ContentBody": { 
+    "Name": "players" 
+    "Value": "" 
+  } 
+} 
+ 
+Response Example 
+{ 
+  "statusCode": 200, 
+  "StatusMessage": "Successfully performed request." 
+  "version": 2, 
+  "name": "ServerInformation", 
+  "contentBody": "{ 
+ "players": [ 
+  { 
+   "name": "John Doe", 
+   "iD": "76561197960287930", 
+   "platform": "steam" 
+  } 
+ ] 
+} 
+" 
+} 
+ 
+Information Requests 
+Name Value Description 
+players N/A Retrieves a list of players in 
+the server. 
+player  Player ID Retrieves detailed 
+information about a player. 
+maprotation N/A Retrieved a list of the maps in 
+rotation. 
+===== PAGE 20 =====
+mapsequence N/A Retrieved a list of the maps in 
+the sequence. 
+session N/A Retrieves information about 
+the current server session. 
+serverconfig N/A Retrieves information about 
+the server. 
+bannedwords N/A Retrieves all custom 
+profanity words. 
+Vipplayers 
+ 
+N/A Retrieves a list of VIP players. 
+ 
+1.0 Player Information 
+Name Type Description 
+Name string Platform name of player. 
+ 
+ClanTag  string Players clan tag. 
+ 
+Id string EOS ID of the player. 
+ 
+Platform string Platform of the player. 
+ 
+SteamId string Steam ID of the player. 
+ 
+Level 
+ 
+Int32 Players career level. 
+Team  
+ 
+Int32 Players current team. 
+Role 
+ 
+Int32 Players current role. 
+Platoon 
+ 
+string Players current platoon.  
+ScoreData 
+ 
+PlayerScoreData Players current score. 
+Stats 
+ 
+PlayerStatsData Players current stats. 
+Loadout 
+ 
+string Players current loadout. 
+WorldPosition 
+ 
+vector Players current world 
+position. 
+ 
+1.1 Player Score Data 
+Name Type Description 
+Combat Int32 Players combat score. 
+ 
+Offense 
+ 
+Int32 Players offensive score 
+Defense 
+ 
+Int32 Players defensive score. 
+Support Int32 Players support score. 
+===== PAGE 21 =====
+1.2 Player Stats Data 
+Name Type Description 
+Deaths Int32 Total number of deaths 
+during a match. 
+ 
+InfantryKills 
+ 
+Int32 Total number of infantry kills 
+during a match. 
+VehicleKills 
+ 
+Int32 TBC 
+TeamKills 
+ 
+Int32 Total number of team kills 
+during a match. 
+VehiclesDestroyed 
+ 
+Int32 TBC 
+ 
+2.0 Map Information 
+Name Type Description 
+CurrentIndex string Current position of the map 
+sequence. (Only used in 
+mapsequence) 
+ 
+Maps Array<MapEntry> List of maps. 
+ 
+ 
+2.1 Map Entry 
+Name Type Description 
+Name string Name of the map. 
+ 
+GameMode string Name of the game mode. 
+ 
+TimeOfDay string Time variant of the map. 
+ 
+Id string ID of the map. 
+ 
+Position Int32 Position in the rotation or 
+sequence. 
+ 
+ 
+ 
+  
+===== PAGE 22 =====
+3.0 Session Information 
+Name Type Description 
+ServerName string Name of the server. 
+ 
+MapName string Current map playing on the 
+server. 
+ 
+MapId 
+ 
+string Id of the current map playing 
+on the server. 
+GameMode string Current game mode playing 
+on the server. 
+ 
+RemainingMatchTime Int32 
+ 
+Remaining timer left for the 
+match. 
+MatchTime 
+ 
+Int32 Total match time duration. 
+AlliedFaction 
+ 
+Int32 
+ 
+Allied faction index. 
+AxisFaction 
+ 
+Int32 Axis faction Index. 
+MaxPlayerCount Int32 Max players allowed on the 
+server. 
+ 
+AlliedScore Int32 
+ 
+Current score for the allies 
+team. 
+AxisScore  
+ 
+Int32 Current score for the axis 
+team. 
+Initial Morale Int32 Starting morale for both 
+teams in Conquest. 
+AlliedMorale Int32 Allies team current morale 
+score in Conquest. 
+AxisMorale Int32 Axis team current morale 
+score in Conquest. 
+PlayerCount Int32 Current player count on the 
+server. 
+AlliedPlayerCount Int32 
+ 
+Current player count for the 
+allies team. 
+AxisPlayerCount 
+ 
+Int32 Current player count for the 
+axis team. 
+MaxQueueCount 
+ 
+Int32 Max players allowed to 
+queue. 
+QueueCount 
+ 
+Int32 Current players queued for 
+the server. 
+MaxVipQueueCount 
+ 
+Int32 Max VIP count allowed to 
+queue. 
+VipQueueCount 
+ 
+Int32 Current queued VIP player 
+count. 
+ 
+  
+===== PAGE 23 =====
+4.0 Server Configuration Information 
+Name Type Description 
+ServerName string Name of the server. 
+ 
+BuildNumber string Current build number for the 
+server. 
+ 
+BuildRevision string Current build revision for the 
+server. 
+ 
+SupportedPlatforms Array<string> Supported platforms on the 
+server. 
+ 
+PasswordProtected boolean Determines if a server is 
+password protected. 
+ 
+ 
+5.0 Banned Words Information 
+Name Type Description 
+BannedWords Array<string> List of custom banned words. 
+ 
+ 
+ 
+6.0 VIP Players Information 
+Name Type Description 
+VipPlayers Array<VipPlayerEntry> List of VIP players. 
+ 
+ 
+ 
+6.1 VIP Player Entry 
+Name Type Description 
+Id string ID of the Vip player. 
+ 
+Comment string Vip comment. 
+ 
+ 
+  
+===== PAGE 24 =====
+Server Broadcast 
+Broadcasts a message to the server. 
+Arguments 
+Parameter Type 
+Message string 
+ 
+ 
+ 
+Set High Ping Threshold 
+Sets the threshold for players with high ping.  
+Arguments 
+Parameter Type 
+HighPingThresholdMs Int32 
+ 
+ 
+ 
+Get High Ping Threshold  
+Retrieves the threshold for players with high ping.  
+Response 
+Name Type 
+HighPingThresholdMs  
+ 
+Int32 
+ 
+===== PAGE 25 =====
+Get Client Reference Data 
+Gets the data for creating dialogue options for commands that are client supported.  
+ 
+Request Example 
+{ 
+  "AuthToken": "f95c9bc1-4aa1-d8ae-8bc3-28bef230df52", 
+  "Version": 2, 
+  "Name": "ClientReferenceData", 
+  "ContentBody": "[Command ID]" 
+} 
+ 
+Response Content Body 
+Name Type Description 
+Name string ID of the command 
+requested. 
+Text  string Friendly name of the 
+command requested. 
+Description string Description text of the 
+command requested. 
+DialogueParameters 
+ 
+array Retrieves parameter 
+information about a specified 
+command. 
+ 
+Dialogue Parameter 
+Name Type Description 
+Type string Type of dialogue the 
+parameter is meant for. Can 
+either be: Combo, 
+MultiSelect, Text or Number 
+Name  
+ 
+string Name of the parameter. 
+Id string ID for the parameter. Used for 
+creating request data for the 
+server. 
+DisplayMember string Dialogue options for the 
+parameter. Meant for client 
+view. 
+ValueMember 
+ 
+string Dialogue options for the 
+parameter. Meant for server 
+requests. 
+ 
+  
+===== PAGE 26 =====
+Message Player 
+Sends a message to a specific player. 
+Arguments 
+Parameter Type 
+Message string 
+ 
+PlayerId 
+ 
+string 
+ 
+ 
+Punish Player 
+Punishes a player by killing their character. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+Reason 
+ 
+string 
+ 
+ 
+Kick Player 
+Kicks a player from the server. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+Reason 
+ 
+string 
+ 
+ 
+  
+===== PAGE 27 =====
+Temporary Ban Player 
+Bans a player from the server for a certain duration. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+Duration 
+ 
+Int32 
+Reason 
+ 
+string 
+AdminName 
+ 
+string 
+ 
+ 
+Remove Temporary Ban  
+Removes a temporary ban from a player. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+ 
+ 
+Permanent Ban Player 
+Bans a player from a server permanently. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+Reason 
+ 
+string 
+AdminName 
+ 
+string 
+ 
+ 
+  
+===== PAGE 28 =====
+Remove Permanent Ban 
+Removes a permanent ban from a player. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+ 
+ 
+Set Auto Balance Enabled 
+Enables or disables team auto balancing for the sever. 
+Arguments 
+Parameter Type 
+Enable boolean 
+ 
+ 
+ 
+Get Auto Balance Enabled 
+Retrieves the whether the auto balance is enabled or disabled.  
+Response 
+Name Type 
+Enable  
+ 
+boolean 
+ 
+ 
+ 
+Set Auto Balance Threshold 
+Sets the player threshold number for team auto balancing. 
+Arguments 
+Parameter Type 
+AutoBalanceThreshold Int32 
+ 
+ 
+ 
+ 
+ 
+  
+===== PAGE 29 =====
+Get Auto Balance Threshold 
+Retrieves the player threshold number for team auto balancing. 
+Response 
+Name Type 
+AutoBalanceThreshold  Int32 
+ 
+ 
+ 
+Set Vote Kick Enabled 
+Enables or disables the vote to kick functionality. 
+Arguments 
+Parameter Type 
+Enable boolean 
+ 
+ 
+ 
+Get Vote Kick Enabled 
+Retrieves whether vote to kick is enabled. 
+Response 
+Name Type 
+Enable boolean 
+ 
+ 
+ 
+Reset Vote to Kick Threshold 
+Resets the vote to kick threshold. 
+Arguments 
+This command does not take any arguments. 
+ 
+  
+===== PAGE 30 =====
+Set Vote to Kick Threshold 
+Sets the vote to kick threshold. 
+Arguments 
+Parameter Type 
+ThresholdValue string 
+ 
+ 
+ 
+Get Vote to Kick Threshold 
+Retrieves the vote to kick threshold. 
+Response 
+Name Type 
+ThresholdValue string 
+ 
+ 
+ 
+Add Banned Words 
+Adds words to the custom profanity filter. Words should be separated with a comma. 
+Arguments 
+Parameter Type 
+BannedWords string 
+ 
+ 
+ 
+Remove Banned Words 
+Removes words from the custom profanity filter. Words should be separated with a comma. 
+Arguments 
+Parameter Type 
+BannedWords string 
+ 
+ 
+ 
+  
+===== PAGE 31 =====
+Add VIP 
+Gives a player VIP status. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+Comment 
+ 
+string 
+ 
+ 
+Remove VIP 
+Removes VIP status from a player. 
+Arguments 
+Parameter Type 
+PlayerId string 
+ 
+ 
+ 
+Set VIP Slot Count 
+Set the VIP slot count for the server. 
+Arguments 
+Parameter Type 
+VipSlotCount 
+ 
+Int32 
+ 
+ 
+Set Match Timer 
+Sets the match time of a specified game mode in minutes. For offensive the match timer is the 
+length of each control point phase. Match timers are limited to the following ranges:  
+Warfare: 30 – 180 minutes 
+Offensive: 10 – 60 minutes 
+Skirmish: 10 – 60 minutes 
+Arguments 
+Parameter Type 
+GameMode string 
+ 
+MatchLength 
+ 
+Int32 
+===== PAGE 32 =====
+Remove Match Timer 
+Removes the custom match timers for the specified game mode. 
+Arguments 
+Parameter Type 
+GameMode string 
+ 
+ 
+ 
+Set Warmup Timer 
+Sets the warmup timer for a specified game mode in minutes. Only supports Warfare and 
+Skirmish. Warmup timers are limited to the following ranges: 
+1 – 10 Minutes 
+Arguments 
+Parameter Type 
+GameMode string 
+ 
+WarmupLength 
+ 
+Int32 
+ 
+ 
+Remove Warmup Timer 
+Removes the custom warmup timer for a specified game mode. 
+Arguments 
+Parameter Type 
+GameMode string 
+ 
+ 
+ 
+Set Dynamic Weather Enabled 
+Enables or disabled dynamic weather for a specific map. Command only functions for maps 
+that use the dynamic weather system.  
+Arguments 
+Parameter Type 
+MapId 
+ 
+string 
+ 
+Enable boolean 
+===== PAGE 33 =====
+Get Server Changelist 
+Retrieves the change list build number for the server.  
+Response 
+Parameter Type 
+Changelist 
+ 
+string 
+ 
+ 
+ 
+Remove Player From Platoon 
+Finds and removes a player from their platoon (Squad). 
+Arguments 
+Parameter Type 
+PlayerId 
+ 
+string 
+ 
+Reason 
+ 
+string 
+ 
+ 
+Disband Platoon 
+Finds and removes all players from a platoon (Squad). 
+Arguments 
+Parameter Type 
+TeamIndex 
+ 
+uint8 
+ 
+SquadIndex 
+ 
+Int32 
+Reason 
+ 
+string 
+ 

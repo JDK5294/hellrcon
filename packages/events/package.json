@@ -1,0 +1,18 @@
+{
+  "name": "@app/events",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "echo \"(types-only package: typecheck is the test; @app/db asserts its EVENT_KINDS list matches this union)\""
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

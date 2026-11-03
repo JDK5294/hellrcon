@@ -1,0 +1,472 @@
+{
+  "panel": {
+    "command": {
+      "name": "staff",
+      "enabled": true
+    },
+    "linked": true,
+    "home": {
+      "content": "**Staff panel** — pick a module:\n• **Servers** — Connection and mode of every game server\n• **Economy** — Balances, VIP, history — everything on one member card\n• **Moderation** — Kick, ban, message and watch players — volleys that fire on your permissions or file as requests.\n• **Maps & vote** — Current map and vote at a glance; change or queue maps, set objectives, drive the vote.",
+      "components": [
+        {
+          "type": 1,
+          "components": [
+            {
+              "type": 2,
+              "style": 1,
+              "label": "Servers",
+              "custom_id": "sp:servers::"
+            },
+            {
+              "type": 2,
+              "style": 1,
+              "label": "Economy",
+              "custom_id": "sp:economy::"
+            },
+            {
+              "type": 2,
+              "style": 1,
+              "label": "Moderation",
+              "custom_id": "sp:moderation::"
+            },
+            {
+              "type": 2,
+              "style": 1,
+              "label": "Maps & vote",
+              "custom_id": "sp:maps::"
+            }
+          ]
+        }
+      ]
+    },
+    "parts": {
+      "servers": {
+        "label": "Servers",
+        "message": {
+          "content": "**Servers (2)**\n**#1 Server #1** — active · hll\n**#2 Server #2** — observe · hll",
+          "components": [
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "‹ Back",
+                  "custom_id": "sp:home::"
+                }
+              ]
+            }
+          ]
+        },
+        "servers": false
+      },
+      "economy": {
+        "label": "Economy",
+        "message": {
+          "content": "**Economy** — 2 member(s) · currency: **Points**\nPick a member below (the picker searches as you type) to see their balance, VIP and history — and act on them.\n\n**Top balances**\n1. **Alice** — 1,250 Points\n2. **Bob** — 430 Points",
+          "components": [
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "By Discord id",
+                  "custom_id": "sp:economy:memberm:"
+                },
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "Recent activity",
+                  "custom_id": "sp:economy:act:0"
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 1,
+                  "label": "Register / link accounts",
+                  "custom_id": "sp:register::"
+                },
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "Post the public VIP panel",
+                  "custom_id": "sp:viplauncher::"
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 5,
+                  "custom_id": "sp:economy:member:",
+                  "placeholder": "Pick a member to open their card"
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "‹ Back",
+                  "custom_id": "sp:home::"
+                }
+              ]
+            }
+          ]
+        },
+        "servers": false
+      },
+      "moderation": {
+        "label": "Moderation",
+        "message": {
+          "content": "**Moderation** — pick the server the volley targets.\nThen stack targets and actions, review, and send: what your permissions cover fires, the rest is filed as ONE approval request.",
+          "components": [
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 3,
+                  "custom_id": "sp:moderation:srv:",
+                  "placeholder": "Pick a server",
+                  "options": [
+                    {
+                      "label": "Server #1",
+                      "value": "s1"
+                    },
+                    {
+                      "label": "Server #2",
+                      "value": "s2",
+                      "description": "observe mode (read-only)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "‹ Back",
+                  "custom_id": "sp:home::"
+                }
+              ]
+            }
+          ]
+        },
+        "servers": true
+      },
+      "maps": {
+        "label": "Maps & vote",
+        "message": {
+          "content": "**Maps & vote** — pick a server.",
+          "components": [
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 3,
+                  "custom_id": "sp:maps:srv:",
+                  "placeholder": "Pick a server",
+                  "options": [
+                    {
+                      "label": "Server #1",
+                      "value": "s1",
+                      "description": "hll"
+                    },
+                    {
+                      "label": "Server #2",
+                      "value": "s2",
+                      "description": "hll · observe mode (read-only)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "‹ Back",
+                  "custom_id": "sp:home::"
+                }
+              ]
+            }
+          ]
+        },
+        "servers": true
+      },
+      "register": {
+        "label": "Manual registration",
+        "message": {
+          "content": "**Manual registration** — link a member's Discord to their game account.\nUse this when the member can't do it themselves from the VIP panel (not in game, console chat, wrong account already linked).\nPick them below, or use their Discord id if they aren't in this server.",
+          "components": [
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "Enter a Discord id",
+                  "custom_id": "sp:register:memberm:"
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 5,
+                  "custom_id": "sp:register:member:",
+                  "placeholder": "Pick the Discord member"
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "‹ Back",
+                  "custom_id": "sp:economy::"
+                }
+              ]
+            }
+          ]
+        },
+        "servers": false
+      },
+      "viplauncher": {
+        "label": "VIP launcher",
+        "message": {
+          "content": "**Post the VIP panel launcher here?**\nMembers press its button to check VIP, collect points, buy, gift and link their game account.\nIt stays put and keeps working after restarts.",
+          "components": [
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 1,
+                  "label": "Post it in this channel",
+                  "custom_id": "sp:viplauncher:post:"
+                }
+              ]
+            },
+            {
+              "type": 1,
+              "components": [
+                {
+                  "type": 2,
+                  "style": 2,
+                  "label": "‹ Back",
+                  "custom_id": "sp:economy::"
+                }
+              ]
+            }
+          ]
+        },
+        "servers": false
+      }
+    }
+  },
+  "maps": {
+    "content": "**Maps & vote** — **Server #1**\n**Current map:** Carentan — Warfare · 64 player(s)\n**Next in rotation:** Foy — Warfare (3 map(s) in rotation)\n**Map vote:** 🗳 open — 2 option(s), 11 vote(s) so far",
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 4,
+            "label": "Change map now…",
+            "custom_id": "sp:maps:mp:s1:c:0"
+          },
+          {
+            "type": 2,
+            "style": 1,
+            "label": "Set next map…",
+            "custom_id": "sp:maps:mp:s1:n:0"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "Objectives…",
+            "custom_id": "sp:maps:ob:s1"
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "label": "⏸ Pause vote",
+            "custom_id": "sp:maps:vp:s1:1"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "⏭ Skip current",
+            "custom_id": "sp:maps:vs:s1"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "🎲 Re-roll options",
+            "custom_id": "sp:maps:vr:s1"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "🚀 Start a vote now",
+            "custom_id": "sp:maps:vn:s1"
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "label": "Refresh",
+            "custom_id": "sp:maps:hub:s1"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "All servers",
+            "custom_id": "sp:maps::"
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "label": "‹ Back",
+            "custom_id": "sp:home::"
+          }
+        ]
+      }
+    ]
+  },
+  "moderation": {
+    "content": "**Moderation** — **Server #1**\n**Targets (0):** _none yet — add from the roster or by id_\n**Actions (0):** _none yet — toggle below (each asks its reason)_\n\n_Toggling an action on asks for its details; toggling again removes it. Watch is community-wide; the rest land on this server._",
+    "components": [
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 1,
+            "label": "Add from roster",
+            "custom_id": "sp:moderation:pl:"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "Add by id…",
+            "custom_id": "sp:moderation:addm:"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "Clear targets",
+            "custom_id": "sp:moderation:drop:"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "Switch server",
+            "custom_id": "sp:moderation:sw:"
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "label": "💬 Message",
+            "custom_id": "sp:moderation:tog:message"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "☠️ Punish",
+            "custom_id": "sp:moderation:tog:punish"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "👢 Kick",
+            "custom_id": "sp:moderation:tog:kick"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "⏱️ Temp ban",
+            "custom_id": "sp:moderation:tog:tempban"
+          },
+          {
+            "type": 2,
+            "style": 2,
+            "label": "🔨 Perma ban",
+            "custom_id": "sp:moderation:tog:permaban"
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "label": "👁️ Watch",
+            "custom_id": "sp:moderation:tog:watch"
+          },
+          {
+            "type": 2,
+            "style": 1,
+            "label": "Review & send",
+            "custom_id": "sp:moderation:rev:"
+          },
+          {
+            "type": 2,
+            "style": 4,
+            "label": "Empty the cart",
+            "custom_id": "sp:moderation:clr:"
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 2,
+            "label": "‹ Back",
+            "custom_id": "sp:home::"
+          }
+        ]
+      }
+    ]
+  }
+}

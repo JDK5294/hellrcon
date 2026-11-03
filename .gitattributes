@@ -1,0 +1,16 @@
+# Shell scripts get executed inside Linux containers or by /bin/sh directly — a Windows
+# checkout that rewrites their line endings to CRLF breaks them (Alpine's ash reads a line like
+# "set -e\r" as the illegal option "-e<CR>" and exits). `eol=lf` forces LF in the working tree
+# on every platform, overriding whatever core.autocrlf a contributor's git is set to — the
+# infra/crcon-db-entrypoint.sh incident this fixes did not require the user to do anything wrong,
+# just the out-of-the-box Windows git default.
+*.sh text eol=lf
+
+# Batch files go the other way: cmd.exe expects CRLF line endings, and with LF-only lines `goto`
+# and `call` can miss a label that is plainly there (a long-standing cmd.exe quirk). A ZIP download
+# from GitHub, or a checkout with autocrlf off, gave exactly that copy; `eol=crlf` writes CRLF into
+# the working tree on every platform.
+*.bat text eol=crlf
+# install.bat is the one people download on its own, and a single-file download from GitHub is the
+# file as stored, which for the rule above is LF. So it is stored with its CRLF as it is.
+install.bat -text

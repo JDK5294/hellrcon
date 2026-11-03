@@ -1,0 +1,6304 @@
+{
+  "endpoints": {
+    "add_admin": {
+      "permission": "'api.can_add_admin_roles'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": null,
+          "default": null
+        },
+        {
+          "name": "role",
+          "type": null,
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": null,
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "add_blacklist_record": {
+      "permission": "'api.can_add_blacklist_records'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "blacklist_id",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "expires_at",
+          "type": "datetime | None",
+          "default": "None"
+        },
+        {
+          "name": "admin_name",
+          "type": "str",
+          "default": "''"
+        }
+      ],
+      "returns": "BlacklistType",
+      "doc": "Adds a new record to a blacklist.",
+      "module": null,
+      "source": "auto"
+    },
+    "add_map_to_rotation": {
+      "permission": "'api.can_add_map_to_rotation'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "after_map_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "add_map_to_votemap": {
+      "permission": "'api.can_add_map_to_votemap'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "add_map_to_votemap_whitelist": {
+      "permission": "'api.can_add_map_to_whitelist'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "add_maps_to_rotation": {
+      "permission": "'api.can_add_maps_to_rotation'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_names",
+          "type": "list[str]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": "Add the given maps to the rotation, returns the game server response for each map",
+      "module": null,
+      "source": "auto"
+    },
+    "add_maps_to_votemap_whitelist": {
+      "permission": "'api.can_add_maps_to_whitelist'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_names",
+          "type": "Iterable[str]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "add_message_template": {
+      "permission": "'api.can_add_message_templates'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "title",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "str | MessageTemplateCategory",
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "int",
+      "doc": "Add a new message template and return the ID of the new record",
+      "module": null,
+      "source": "auto"
+    },
+    "add_vip": {
+      "permission": "'api.can_add_vip'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "expiration",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": "Adds VIP status on the game server and adds or updates their PlayerVIP record.",
+      "module": null,
+      "source": "auto"
+    },
+    "add_votemap_vote": {
+      "permission": "'api.can_add_votemap_vote'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "player_name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "vote_count",
+          "type": "int | None",
+          "default": "None"
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "ban_profanities": {
+      "permission": "'api.can_ban_profanities'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "profanities",
+          "type": "list[str]",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "clear_cache": {
+      "permission": "'api.can_clear_crcon_cache'",
+      "http": "['POST']",
+      "args": [],
+      "returns": "bool",
+      "doc": "Clear every key in this servers Redis cache and return number of deleted keys",
+      "module": null,
+      "source": "auto"
+    },
+    "create_blacklist": {
+      "permission": "'api.can_create_blacklists'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "sync",
+          "type": "BlacklistSyncMethod",
+          "default": "BlacklistSyncMethod.KICK_ONLY"
+        },
+        {
+          "name": "servers",
+          "type": "Sequence[int] | None",
+          "default": "None"
+        }
+      ],
+      "returns": null,
+      "doc": "Creates a new, empty blacklist.",
+      "module": null,
+      "source": "auto"
+    },
+    "delete_blacklist": {
+      "permission": "'api.can_delete_blacklists'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "blacklist_id",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": "Removes a blacklist alongside all of its records.",
+      "module": null,
+      "source": "auto"
+    },
+    "delete_blacklist_record": {
+      "permission": "'api.can_delete_blacklist_records'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "record_id",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Removes a blacklist record.",
+      "module": null,
+      "source": "auto"
+    },
+    "delete_message_template": {
+      "permission": "'api.can_delete_message_templates'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "id",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Delete a specific message template",
+      "module": null,
+      "source": "auto"
+    },
+    "describe_admin_pings_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_audit_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_auto_broadcasts_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_auto_mod_level_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_auto_mod_no_leader_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_auto_mod_seeding_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_auto_mod_solo_tank_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_camera_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_camera_notification_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_chat_commands_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_chat_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_expired_vip_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_kills_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_log_line_webhook_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_log_stream_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_name_kick_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_rcon_chat_commands_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_rcon_connection_settings_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_rcon_server_settings_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_real_vip_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_scoreboard_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_seed_vip_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_server_name_change_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_standard_broadcast_messages": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_standard_punishments_messages": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_standard_welcome_messages": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_steam_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_tk_ban_on_connect_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_vac_game_bans_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_votekick_autotoggle_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_votemap_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_watch_killrate_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "describe_watchlist_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "disband_squad": {
+      "permission": "'api.can_disband_squad'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "team_index",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "squad_index",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "disband_squad_by_name": {
+      "permission": "'api.can_disband_squad'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "team_name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "squad_name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "do_service": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/services.py",
+      "source": "manual"
+    },
+    "download_vips": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/vips.py",
+      "source": "manual"
+    },
+    "edit_blacklist": {
+      "permission": "'api.can_change_blacklists'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "blacklist_id",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "str",
+          "default": "MISSING"
+        },
+        {
+          "name": "sync_method",
+          "type": "BlacklistSyncMethod",
+          "default": "MISSING"
+        },
+        {
+          "name": "servers",
+          "type": "Sequence[int] | None",
+          "default": "MISSING"
+        }
+      ],
+      "returns": null,
+      "doc": "Edits a blacklist.",
+      "module": null,
+      "source": "auto"
+    },
+    "edit_blacklist_record": {
+      "permission": "'api.can_change_blacklist_records'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "record_id",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "blacklist_id",
+          "type": "int",
+          "default": "MISSING"
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": "MISSING"
+        },
+        {
+          "name": "expires_at",
+          "type": "datetime | None",
+          "default": "MISSING"
+        }
+      ],
+      "returns": "bool",
+      "doc": "Edits a blacklist record.",
+      "module": null,
+      "source": "auto"
+    },
+    "edit_message_template": {
+      "permission": "'api.can_edit_message_templates'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "id",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "str | None",
+          "default": null
+        },
+        {
+          "name": "content",
+          "type": "str | None",
+          "default": null
+        },
+        {
+          "name": "category",
+          "type": "str | MessageTemplateCategory | None",
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "None",
+      "doc": "Add a new message template and return the ID of the new record",
+      "module": null,
+      "source": "auto"
+    },
+    "edit_player_account": {
+      "permission": "'api.can_edit_player_account'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "discord_id",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "is_member",
+          "type": "bool",
+          "default": "False"
+        },
+        {
+          "name": "country",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "lang",
+          "type": "str",
+          "default": "'en'"
+        }
+      ],
+      "returns": null,
+      "doc": "Update PlayerAccount fields for the given player_id. All fields can be updated, including setting them to null. Returns dict with account data and success message.",
+      "module": null,
+      "source": "auto"
+    },
+    "edit_player_soldier": {
+      "permission": "'api.can_edit_player_soldier'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "name",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "level",
+          "type": "int",
+          "default": "0"
+        },
+        {
+          "name": "platform",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "clan_tag",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "eos_id",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": null,
+      "doc": "Update NULL fields only in PlayerSoldier for the given player_id. Does not overwrite any existing non-null values. Returns the updated soldier as dict or None if not found.",
+      "module": null,
+      "source": "auto"
+    },
+    "flag_player": {
+      "permission": "'api.can_flag_player'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "flag",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "comment",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "PlayerFlagType",
+      "doc": "Adds a new flag to the specified player_id",
+      "module": null,
+      "source": "auto"
+    },
+    "get_admin_groups": {
+      "permission": "'api.can_view_admin_groups'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[str]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_admin_ids": {
+      "permission": "'api.can_view_admin_ids'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[AdminType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_admin_pings_discord_webhooks_config": {
+      "permission": "'api.can_view_admin_pings_discord_webhooks_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AdminPingWebhooksUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_all_discord_webhooks_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "get_all_message_templates": {
+      "permission": "'api.can_view_message_templates'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AllMessageTemplateTypes",
+      "doc": "Get all message templates by category",
+      "module": null,
+      "source": "auto"
+    },
+    "get_all_standard_message_config": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/user_settings.py",
+      "source": "manual"
+    },
+    "get_all_webhook_queues": {
+      "permission": "'api.can_view_webhook_queues'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[str]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_audit_discord_webhooks_config": {
+      "permission": "'api.can_view_audit_discord_webhooks_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AuditWebhooksUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_audit_logs": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/audit_log.py",
+      "source": "manual"
+    },
+    "get_audit_logs_autocomplete": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/audit_log.py",
+      "source": "manual"
+    },
+    "get_auto_broadcasts_config": {
+      "permission": "'api.can_view_auto_broadcast_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AutoBroadcastUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_auto_mod_level_config": {
+      "permission": "'api.can_view_auto_mod_level_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AutoModLevelUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_auto_mod_no_leader_config": {
+      "permission": "'api.can_view_auto_mod_no_leader_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AutoModNoLeaderUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_auto_mod_seeding_config": {
+      "permission": "'api.can_view_auto_mod_seeding_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AutoModSeedingUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_auto_mod_solo_tank_config": {
+      "permission": "'api.can_view_auto_mod_solo_tank_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AutoModNoSoloTankUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_auto_settings": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/auto_settings.py",
+      "source": "manual"
+    },
+    "get_autobalance_enabled": {
+      "permission": "'api.can_view_autobalance_enabled'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_autobalance_threshold": {
+      "permission": "'api.can_view_autobalance_threshold'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_ban": {
+      "permission": "'api.can_view_player_bans'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "list[GameServerBanType]",
+      "doc": "get all bans from player_id @param player_id: steam_id_64 or windows store ID of a user @return: a array of bans",
+      "module": null,
+      "source": "auto"
+    },
+    "get_bans": {
+      "permission": "{'api.can_view_temp_bans', 'api.can_view_perma_bans'}",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[GameServerBanType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_blacklist": {
+      "permission": "'api.can_view_blacklists'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "blacklist_id",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "BlacklistWithRecordsType",
+      "doc": "Get a blacklist and its respective records.",
+      "module": null,
+      "source": "auto"
+    },
+    "get_blacklist_records": {
+      "permission": "'api.can_view_blacklists'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": "None"
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": "None"
+        },
+        {
+          "name": "blacklist_id",
+          "type": "int",
+          "default": "None"
+        },
+        {
+          "name": "exclude_expired",
+          "type": "bool",
+          "default": "False"
+        },
+        {
+          "name": "page_size",
+          "type": "int",
+          "default": "50"
+        },
+        {
+          "name": "page",
+          "type": "int",
+          "default": "1"
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_blacklists": {
+      "permission": "'api.can_view_blacklists'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[BlacklistType]",
+      "doc": "Get all blacklists.",
+      "module": null,
+      "source": "auto"
+    },
+    "get_broadcast_message": {
+      "permission": "'api.can_view_broadcast_message'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "str | bytes | None",
+      "doc": "Returns the current broadcast message if the cache is set",
+      "module": null,
+      "source": "auto"
+    },
+    "get_camera_discord_webhooks_config": {
+      "permission": "'api.can_view_camera_discord_webhooks_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "CameraWebhooksUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_camera_notification_config": {
+      "permission": "'api.can_view_camera_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "CameraNotificationUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_chat_commands_config": {
+      "permission": "'api.can_view_chat_commands_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_chat_discord_webhooks_config": {
+      "permission": "'api.can_view_chat_discord_webhooks_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "ChatWebhooksUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_date_scoreboard": {
+      "permission": "'api.can_view_date_scoreboard'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "start",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "end",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_detailed_player_info": {
+      "permission": "'api.can_view_detailed_player_info'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "player",
+          "type": "GetPlayersType | None",
+          "default": "None"
+        }
+      ],
+      "returns": "GetDetailedPlayer",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_detailed_players": {
+      "permission": "'api.can_view_detailed_players'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "GetDetailedPlayers",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_expired_vip_config": {
+      "permission": "'api.get_expired_vip_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "ExpiredVipsUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_gamestate": {
+      "permission": "'api.can_view_gamestate'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "GameStateType",
+      "doc": "Returns player counts, team scores, remaining match time and current/next map",
+      "module": null,
+      "source": "auto"
+    },
+    "get_historical_logs": {
+      "permission": "'api.can_view_historical_logs'",
+      "http": "['GET', 'POST']",
+      "args": [
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "player_id",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "action",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "default": "1000"
+        },
+        {
+          "name": "from_",
+          "type": "datetime | None",
+          "default": "None"
+        },
+        {
+          "name": "till",
+          "type": "datetime | None",
+          "default": "None"
+        },
+        {
+          "name": "time_sort",
+          "type": "Literal['desc', 'asc']",
+          "default": "'desc'"
+        },
+        {
+          "name": "exact_player_match",
+          "type": "bool",
+          "default": "False"
+        },
+        {
+          "name": "exact_action",
+          "type": "bool",
+          "default": "True"
+        },
+        {
+          "name": "server_filter",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_historical_logs_csv": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/history.py",
+      "source": "manual"
+    },
+    "get_idle_autokick_time": {
+      "permission": "'api.can_view_idle_autokick_time'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_ingame_mods": {
+      "permission": "'api.can_view_ingame_admins'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[AdminUserType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_kills_discord_webhooks_config": {
+      "permission": "'api.can_view_kills_discord_webhooks_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_live_game_stats": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": "Return stats for the currently playing match",
+      "module": "rconweb/api/scoreboards.py",
+      "source": "manual"
+    },
+    "get_live_scoreboard": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": "Return stats for all currently connected players (stats are reset on disconnect, not match start)",
+      "module": "rconweb/api/scoreboards.py",
+      "source": "manual"
+    },
+    "get_log_line_webhook_config": {
+      "permission": "'api.get_log_line_webhook_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "LogLineWebhookUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_log_stream_config": {
+      "permission": "'api.can_view_log_stream_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_logs": {
+      "permission": "'api.can_view_game_logs'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "since_min_ago",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "filter_",
+          "type": "str",
+          "default": "''"
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": "''"
+        }
+      ],
+      "returns": "list[str]",
+      "doc": "Returns raw text logs from the game server with no parsing performed",
+      "module": null,
+      "source": "auto"
+    },
+    "get_map": {
+      "permission": "'api.can_view_current_map'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "Layer",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_map_history": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/scoreboards.py",
+      "source": "manual"
+    },
+    "get_map_rotation": {
+      "permission": "'api.can_view_map_rotation'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "GetMapRotation",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_map_scoreboard": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/scoreboards.py",
+      "source": "manual"
+    },
+    "get_map_sequence": {
+      "permission": "'api.can_view_current_map_sequence'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "GetMapSequence",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_map_shuffle_enabled": {
+      "permission": "'api.can_view_map_shuffle_enabled'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_maps": {
+      "permission": "'api.can_view_all_maps'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[Layer]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_max_ping_autokick": {
+      "permission": "'api.can_view_max_ping_autokick'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_message_template": {
+      "permission": "'api.can_view_message_templates'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "id",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "MessageTemplateType | None",
+      "doc": "Return the message template for the specified record if it exists",
+      "module": null,
+      "source": "auto"
+    },
+    "get_message_template_categories": {
+      "permission": "'api.can_view_message_templates'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[MessageTemplateCategory]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_message_templates": {
+      "permission": "'api.can_view_message_templates'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "category",
+          "type": "MessageTemplateCategory",
+          "default": null
+        }
+      ],
+      "returns": "list[MessageTemplateType]",
+      "doc": "Get all possible message type categories",
+      "module": null,
+      "source": "auto"
+    },
+    "get_name": {
+      "permission": "'api.can_view_server_name'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "str",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_name_kick_config": {
+      "permission": "'api.can_view_name_kick_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "NameKickUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_next_map": {
+      "permission": "'api.can_view_next_map'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "Layer",
+      "doc": "Return the next map in the rotation as determined by the gameserver through the gamestate command",
+      "module": null,
+      "source": "auto"
+    },
+    "get_objective_rows": {
+      "permission": "'api.can_view_current_map'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "List[List[str]]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_online_mods": {
+      "permission": "'api.can_view_online_admins'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[AdminUserType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_own_user_permissions": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/auth.py",
+      "source": "manual"
+    },
+    "get_perma_bans": {
+      "permission": "'api.can_view_perma_bans'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[GameServerBanType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_player_comments": {
+      "permission": "'api.can_view_player_comments'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "list[PlayerCommentType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_player_ids": {
+      "permission": "'api.can_view_playerids'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "as_dict",
+          "type": null,
+          "default": "False"
+        }
+      ],
+      "returns": "dict[str, str] | list[tuple[str, str]]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_player_info": {
+      "permission": "'api.can_view_player_info'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "can_fail",
+          "type": null,
+          "default": "False"
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_player_messages": {
+      "permission": "'api.can_view_player_messages'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_player_profile": {
+      "permission": "'api.can_view_player_profile'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "num_sessions",
+          "type": "int",
+          "default": "10"
+        }
+      ],
+      "returns": "PlayerProfileTypeEnriched | None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_players": {
+      "permission": "'api.can_view_get_players'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[GetPlayersType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_players_history": {
+      "permission": "'api.can_view_player_history'",
+      "http": "['GET', 'POST']",
+      "args": [
+        {
+          "name": "page",
+          "type": "int",
+          "default": "1"
+        },
+        {
+          "name": "page_size",
+          "type": "int",
+          "default": "500"
+        },
+        {
+          "name": "last_seen_from",
+          "type": "datetime | None",
+          "default": "None"
+        },
+        {
+          "name": "last_seen_till",
+          "type": "datetime | None",
+          "default": "None"
+        },
+        {
+          "name": "player_id",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "blacklisted",
+          "type": "bool | None",
+          "default": "None"
+        },
+        {
+          "name": "is_watched",
+          "type": "bool | None",
+          "default": "None"
+        },
+        {
+          "name": "exact_name_match",
+          "type": "bool",
+          "default": "False"
+        },
+        {
+          "name": "ignore_accent",
+          "type": "bool",
+          "default": "True"
+        },
+        {
+          "name": "flags",
+          "type": "str | list[str] | None",
+          "default": "None"
+        },
+        {
+          "name": "country",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_previous_map": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/scoreboards.py",
+      "source": "manual"
+    },
+    "get_profanities": {
+      "permission": "'api.can_view_profanities'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[str]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_queue_length": {
+      "permission": "'api.can_view_queue_length'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_rcon_chat_commands_config": {
+      "permission": "'api.can_view_rcon_chat_commands_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_rcon_connection_settings_config": {
+      "permission": "'api.can_view_rcon_connection_settings_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "RconConnectionSettingsUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_rcon_server_settings_config": {
+      "permission": "'api.can_view_rcon_server_settings_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "RconServerSettingsUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_real_vip_config": {
+      "permission": "'api.can_view_real_vip_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "RealVipUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_recent_logs": {
+      "permission": "'api.can_view_recent_logs'",
+      "http": "['GET', 'POST']",
+      "args": [
+        {
+          "name": "filter_player",
+          "type": "list[str] | str",
+          "default": "[]"
+        },
+        {
+          "name": "filter_action",
+          "type": "list[str]",
+          "default": "[]"
+        },
+        {
+          "name": "inclusive_filter",
+          "type": "bool",
+          "default": "True"
+        },
+        {
+          "name": "start",
+          "type": "int",
+          "default": "0"
+        },
+        {
+          "name": "end",
+          "type": "int",
+          "default": "10000"
+        },
+        {
+          "name": "exact_player_match",
+          "type": "bool",
+          "default": "True"
+        },
+        {
+          "name": "exact_action",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "ParsedLogsType",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_round_time_remaining": {
+      "permission": "'api.can_view_round_time_remaining'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "float",
+      "doc": "Returns the amount of time left in the round as seconds",
+      "module": null,
+      "source": "auto"
+    },
+    "get_scoreboard_config": {
+      "permission": "'api.can_view_scorebot_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "ScoreboardUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_scoreboard_maps": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/scoreboards.py",
+      "source": "manual"
+    },
+    "get_scorebot_config": {
+      "permission": "'api.can_view_scorebot_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "ScorebotUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_seed_vip_config": {
+      "permission": "'api.can_view_seed_vip_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "SeedVIPUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_server_list": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/multi_servers.py",
+      "source": "manual"
+    },
+    "get_server_name_change_config": {
+      "permission": "'api.get_server_name_change_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "GtxServerNameChangeUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_server_settings": {
+      "permission": "{'api.can_view_team_switch_cooldown', 'api.can_view_autobalance_threshold', 'api.can_view_autobalance_enabled', 'api.can_view_idle_autokick_time', 'api.can_view_max_ping_autokick', 'api.can_view_queue_length', 'api.can_view_vip_slots', 'api.can_view_votekick_enabled', 'api.can_view_votekick_threshold'}",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_services": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/services.py",
+      "source": "manual"
+    },
+    "get_slots": {
+      "permission": "'api.can_view_player_slots'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "SlotsType",
+      "doc": "Return the current number of connected players and max players allowed",
+      "module": null,
+      "source": "auto"
+    },
+    "get_standard_broadcast_messages": {
+      "permission": "'api.can_view_standard_broadcast_messages'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "StandardBroadcastMessagesUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_standard_punishments_messages": {
+      "permission": "'api.can_view_standard_punishment_messages'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "StandardPunishmentMessagesUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_standard_welcome_messages": {
+      "permission": "'api.can_view_standard_welcome_messages'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "StandardWelcomeMessagesUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_status": {
+      "permission": "'api.can_view_get_status'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "StatusType",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_steam_config": {
+      "permission": "'api.can_view_steam_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "SteamUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_structured_logs": {
+      "permission": "'api.can_view_structured_logs'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "since_min_ago",
+          "type": "int",
+          "default": null
+        },
+        {
+          "name": "filter_action",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "filter_player",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "ParsedLogsType",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_team_objective_scores": {
+      "permission": "'api.can_view_team_objective_scores'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "tuple[int, int]",
+      "doc": "Returns the number of objectives held by the allied/axis team respectively",
+      "module": null,
+      "source": "auto"
+    },
+    "get_team_switch_cooldown": {
+      "permission": "'api.can_view_team_switch_cooldown'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_team_view": {
+      "permission": "'api.can_view_team_view'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_temp_bans": {
+      "permission": "'api.can_view_temp_bans'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[GameServerBanType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_tk_ban_on_connect_config": {
+      "permission": "'api.can_view_tk_ban_on_connect_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "BanTeamKillOnConnectUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_vac_game_bans_config": {
+      "permission": "'api.can_view_vac_game_bans_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "VacGameBansUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_vip_ids": {
+      "permission": "'api.can_view_vip_ids'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[VipIdType]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_vip_slots_num": {
+      "permission": "'api.can_view_vip_slots'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_vips_count": {
+      "permission": "'api.can_view_vip_count'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "int",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votekick_autotoggle_config": {
+      "permission": "'api.can_view_votekick_autotoggle_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "AutoVoteKickUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votekick_enabled": {
+      "permission": "'api.can_view_votekick_enabled'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votekick_thresholds": {
+      "permission": "'api.can_view_votekick_threshold'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[list[int]]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votemap_config": {
+      "permission": "'api.can_view_votemap_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "VoteMapUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votemap_results": {
+      "permission": "'api.can_view_votemap_status'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votemap_status": {
+      "permission": "'api.can_view_votemap_status'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_votemap_whitelist": {
+      "permission": "'api.can_view_map_whitelist'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "list[str]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_watch_killrate_config": {
+      "permission": "'api.can_view_watch_killrate_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_watchlist_discord_webhooks_config": {
+      "permission": "'api.can_view_watchlist_discord_webhooks_config'",
+      "http": "['GET']",
+      "args": [],
+      "returns": "WatchlistWebhooksUserConfig",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_webhook_queue_overview": {
+      "permission": "'api.can_view_webhook_queues'",
+      "http": "['GET']",
+      "args": [
+        {
+          "name": "queue_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "webhook_service.QueueStatus | None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "get_webhook_service_summary": {
+      "permission": "'api.can_view_webhook_queues'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": "Return the overall status of the service",
+      "module": null,
+      "source": "auto"
+    },
+    "get_welcome_message": {
+      "permission": "'api.can_view_welcome_message'",
+      "http": "['GET']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "is_logged_in": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/auth.py",
+      "source": "manual"
+    },
+    "kick": {
+      "permission": "'api.can_kick_players'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": null,
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": null,
+          "default": null
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "login": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "manual"
+    },
+    "logout": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "manual"
+    },
+    "message_all_players": {
+      "permission": "'api.can_message_players'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "message",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "message_player": {
+      "permission": "'api.can_message_players'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "message",
+          "type": "str",
+          "default": "''"
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": "''"
+        },
+        {
+          "name": "save_message",
+          "type": "bool",
+          "default": "False"
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "perma_ban": {
+      "permission": "{'api.can_perma_ban_players'}",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": null,
+          "default": "''"
+        },
+        {
+          "name": "by",
+          "type": null,
+          "default": "''"
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "post_player_comment": {
+      "permission": "'api.can_add_player_comments'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "comment",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "punish": {
+      "permission": "'api.can_punish_players'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "reconnect_gameserver": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "manual"
+    },
+    "remove_admin": {
+      "permission": "'api.can_remove_admin_roles'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": null,
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_all_vips": {
+      "permission": "'api.can_remove_all_vips'",
+      "http": "['POST']",
+      "args": [],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_map_from_rotation": {
+      "permission": "'api.can_remove_map_from_rotation'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_map_from_votemap": {
+      "permission": "'api.can_remove_map_from_votemap'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_map_from_votemap_whitelist": {
+      "permission": "'api.can_remove_map_from_whitelist'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_maps_from_rotation": {
+      "permission": "'api.can_remove_maps_from_rotation'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_names",
+          "type": "list[str]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_maps_from_votemap_whitelist": {
+      "permission": "'api.can_remove_maps_from_whitelist'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_names",
+          "type": "Iterable[str]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_match_timer": {
+      "permission": "'api.can_remove_match_timer'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "game_mode",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_perma_ban": {
+      "permission": "'api.can_remove_perma_bans'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Remove a perma ban by ban log. Note that a player ID is a valid ban log.",
+      "module": null,
+      "source": "auto"
+    },
+    "remove_player_from_squad": {
+      "permission": "'api.can_remove_player_from_squad'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "remove_temp_ban": {
+      "permission": "'api.can_remove_temp_bans'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Remove a temp ban by player ID or game server ban log",
+      "module": null,
+      "source": "auto"
+    },
+    "remove_vip": {
+      "permission": "'api.can_remove_vip'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": null,
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Removes VIP status on the game server and removes their PlayerVIP record.",
+      "module": null,
+      "source": "auto"
+    },
+    "remove_warmup_timer": {
+      "permission": "'api.can_remove_warmup_timer'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "game_mode",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "reset_all_webhook_queues_for_server_number": {
+      "permission": "'api.can_change_webhook_queues'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "server_number",
+          "type": "int | str",
+          "default": null
+        }
+      ],
+      "returns": "int",
+      "doc": "Delete each queue associated with the specified server number",
+      "module": null,
+      "source": "auto"
+    },
+    "reset_map_votemap_whitelist": {
+      "permission": "'api.can_reset_map_whitelist'",
+      "http": "['POST']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "reset_votekick_thresholds": {
+      "permission": "'api.can_reset_votekick_threshold'",
+      "http": "['POST']",
+      "args": [],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "reset_votemap_state": {
+      "permission": "'api.can_reset_votemap_state'",
+      "http": "['POST']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "reset_webhook_message_type": {
+      "permission": "'api.can_change_webhook_queues'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "message_type",
+          "type": "webhook_service.WebhookMessageType | str",
+          "default": null
+        }
+      ],
+      "returns": "int",
+      "doc": "Delete each queue of wh_type (discord, etc.) returning the number of deleted queues",
+      "module": null,
+      "source": "auto"
+    },
+    "reset_webhook_queue": {
+      "permission": "'api.can_change_webhook_queues'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "queue_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Delete the specified queue; returning if it deleted any entries",
+      "module": null,
+      "source": "auto"
+    },
+    "reset_webhook_queue_type": {
+      "permission": "'api.can_change_webhook_queues'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "webhook_type",
+          "type": "webhook_service.WebhookType | str",
+          "default": null
+        }
+      ],
+      "returns": "int",
+      "doc": "Delete each queue of wh_type (discord, etc.) returning the number of deleted queues",
+      "module": null,
+      "source": "auto"
+    },
+    "reset_webhook_queues": {
+      "permission": "'api.can_change_webhook_queues'",
+      "http": "['POST']",
+      "args": [],
+      "returns": "int",
+      "doc": "Delete each queue; unprocessed messages may be lost depending on timing",
+      "module": null,
+      "source": "auto"
+    },
+    "send_votemap_reminder": {
+      "permission": "'api.can_send_votemap_reminder'",
+      "http": "['POST']",
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_admin_pings_discord_webhooks_config": {
+      "permission": "'api.can_change_admin_pings_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_audit_discord_webhooks_config": {
+      "permission": "'api.can_change_audit_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_auto_broadcasts_config": {
+      "permission": "'api.can_change_auto_broadcast_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_auto_mod_level_config": {
+      "permission": "'api.can_change_auto_mod_level_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_auto_mod_no_leader_config": {
+      "permission": "'api.can_change_auto_mod_no_leader_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_auto_mod_seeding_config": {
+      "permission": "'api.can_change_auto_mod_seeding_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "user_config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_auto_mod_solo_tank_config": {
+      "permission": "'api.can_change_auto_mod_solo_tank_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_auto_settings": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/auto_settings.py",
+      "source": "manual"
+    },
+    "set_autobalance_enabled": {
+      "permission": "'api.can_change_autobalance_enabled'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "value",
+          "type": "bool",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_autobalance_threshold": {
+      "permission": "'api.can_change_autobalance_threshold'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "max_diff",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_broadcast": {
+      "permission": "'api.can_change_broadcast_message'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "message",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "str",
+      "doc": "Set the in game broadcast message and return the previous message if set",
+      "module": null,
+      "source": "auto"
+    },
+    "set_camera_discord_webhooks_config": {
+      "permission": "'api.can_change_camera_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_camera_notification_config": {
+      "permission": "'api.can_change_camera_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_chat_commands_config": {
+      "permission": "'api.can_change_chat_commands_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_chat_discord_webhooks_config": {
+      "permission": "'api.can_change_chat_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_dynamic_weather_enabled": {
+      "permission": "'api.can_set_dynamic_weather_enabled'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "enabled",
+          "type": "bool",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_expired_vip_config": {
+      "permission": "'api.can_change_expired_vip_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_game_layout": {
+      "permission": "'api.can_change_game_layout'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "objectives",
+          "type": "Sequence[str | int | None]",
+          "default": null
+        },
+        {
+          "name": "random_constraints",
+          "type": "GameLayoutRandomConstraints",
+          "default": "GameLayoutRandomConstraints(0)"
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_idle_autokick_time": {
+      "permission": "'api.can_change_idle_autokick_time'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "minutes",
+          "type": null,
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_kills_discord_webhooks_config": {
+      "permission": "'api.can_change_kills_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_log_line_webhook_config": {
+      "permission": "'api.can_change_log_line_discord_webhook_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_log_stream_config": {
+      "permission": "'api.can_change_log_stream_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_map": {
+      "permission": "'api.can_change_current_map'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_map_rotation": {
+      "permission": "{'api.can_add_map_to_rotation', 'api.can_remove_map_from_rotation', 'api.can_view_map_rotation'}",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_names",
+          "type": "list[str]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_map_shuffle_enabled": {
+      "permission": "'api.can_change_map_shuffle_enabled'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "enabled",
+          "type": "bool",
+          "default": null
+        }
+      ],
+      "returns": "None",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_match_timer": {
+      "permission": "'api.can_set_match_timer'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "game_mode",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "length",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_max_ping_autokick": {
+      "permission": "'api.can_change_max_ping_autokick'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "max_ms",
+          "type": null,
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_name_kick_config": {
+      "permission": "'api.can_change_name_kick_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_profanities": {
+      "permission": "{'api.can_view_profanities', 'api.can_ban_profanities', 'api.can_unban_profanities'}",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "profanities",
+          "type": "list[str]",
+          "default": null
+        }
+      ],
+      "returns": "list[str]",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_queue_length": {
+      "permission": "'api.can_change_queue_length'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "value",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_rcon_chat_commands_config": {
+      "permission": "'api.can_change_rcon_chat_commands_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_rcon_connection_settings_config": {
+      "permission": "'api.can_change_rcon_connection_settings_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_rcon_server_settings_config": {
+      "permission": "'api.can_change_rcon_server_settings_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_real_vip_config": {
+      "permission": "'api.can_change_real_vip_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_scoreboard_config": {
+      "permission": "'api.can_change_scorebot_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_seed_vip_config": {
+      "permission": "'api.can_change_seed_vip_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_server_name": {
+      "permission": "'api.can_change_server_name'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_server_name_change_config": {
+      "permission": "'api.can_change_server_name_change_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_standard_broadcast_messages": {
+      "permission": "'api.can_change_standard_broadcast_messages'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_standard_punishments_messages": {
+      "permission": "'api.can_change_standard_punishment_messages'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_standard_welcome_messages": {
+      "permission": "'api.can_change_standard_welcome_messages'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_steam_config": {
+      "permission": "'api.can_change_steam_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_team_switch_cooldown": {
+      "permission": "'api.can_change_team_switch_cooldown'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "minutes",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_tk_ban_on_connect_config": {
+      "permission": "'api.can_change_tk_ban_on_connect_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_vac_game_bans_config": {
+      "permission": "'api.can_change_vac_game_bans_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_vip_slots_num": {
+      "permission": "'api.can_change_vip_slots'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "value",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_votekick_autotoggle_config": {
+      "permission": "'api.can_change_votekick_autotoggle_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_votekick_enabled": {
+      "permission": "'api.can_change_votekick_enabled'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "value",
+          "type": "bool",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_votekick_thresholds": {
+      "permission": "'api.can_change_votekick_threshold'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "threshold_pairs",
+          "type": "list[tuple[int, int]]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_votemap_config": {
+      "permission": "'api.can_change_votemap_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_votemap_whitelist": {
+      "permission": "'api.can_set_map_whitelist'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_names",
+          "type": "Iterable[str]",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_votemap_winner": {
+      "permission": "'api.can_set_votemap_winner'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "map_name",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_warmup_timer": {
+      "permission": "'api.can_set_warmup_timer'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "game_mode",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "length",
+          "type": "int",
+          "default": null
+        }
+      ],
+      "returns": null,
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_watch_killrate_config": {
+      "permission": "'api.can_change_watch_killrate_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_watchlist_discord_webhooks_config": {
+      "permission": "'api.can_change_watchlist_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "set_welcome_message": {
+      "permission": "'api.can_change_welcome_message'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "message",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "str",
+      "doc": "Set the in game welcome (rules) message and return the previous message if set",
+      "module": null,
+      "source": "auto"
+    },
+    "switch_player_now": {
+      "permission": "'api.can_switch_players_immediately'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "switch_player_on_death": {
+      "permission": "'api.can_switch_players_on_death'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": null,
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": null,
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "temp_ban": {
+      "permission": "'api.can_temp_ban_players'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "duration_hours",
+          "type": "int",
+          "default": "2"
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": "''"
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": "''"
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "unban": {
+      "permission": "{'api.can_remove_temp_bans', 'api.can_remove_perma_bans'}",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Remove all temporary and permanent bans from the player_id.",
+      "module": null,
+      "source": "auto"
+    },
+    "unban_profanities": {
+      "permission": "'api.can_unban_profanities'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "profanities",
+          "type": "list[str]",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "unblacklist_player": {
+      "permission": "{'api.can_delete_blacklist_records', 'api.can_remove_temp_bans', 'api.can_remove_perma_bans'}",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": "Expires all blacklists of a player and unbans them from all servers.",
+      "module": null,
+      "source": "auto"
+    },
+    "unflag_player": {
+      "permission": "'api.can_unflag_player'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "flag_id",
+          "type": "int | None",
+          "default": "None"
+        },
+        {
+          "name": "player_id",
+          "type": "str | None",
+          "default": "None"
+        },
+        {
+          "name": "flag",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "PlayerFlagType",
+      "doc": "Flags can be removed either by flag_id (database key) or by passing a player ID and flag",
+      "module": null,
+      "source": "auto"
+    },
+    "unwatch_player": {
+      "permission": "'api.can_remove_player_watch'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "upload_vips": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/vips.py",
+      "source": "manual"
+    },
+    "upload_vips_result": {
+      "permission": null,
+      "http": null,
+      "args": [],
+      "returns": null,
+      "doc": null,
+      "module": "rconweb/api/vips.py",
+      "source": "manual"
+    },
+    "validate_admin_pings_discord_webhooks_config": {
+      "permission": "'api.can_change_admin_pings_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_audit_discord_webhooks_config": {
+      "permission": "'api.can_change_audit_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_auto_broadcasts_config": {
+      "permission": "'api.can_change_auto_broadcast_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_auto_mod_level_config": {
+      "permission": "'api.can_change_auto_mod_level_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_auto_mod_no_leader_config": {
+      "permission": "'api.can_change_auto_mod_no_leader_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_auto_mod_seeding_config": {
+      "permission": "'api.can_change_auto_mod_seeding_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_auto_mod_solo_tank_config": {
+      "permission": "'api.can_change_auto_mod_solo_tank_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_camera_discord_webhooks_config": {
+      "permission": "'api.can_change_camera_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_camera_notification_config": {
+      "permission": "'api.can_change_camera_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_chat_commands_config": {
+      "permission": "'api.can_change_chat_commands_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_chat_discord_webhooks_config": {
+      "permission": "'api.can_change_chat_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_expired_vip_config": {
+      "permission": "'api.can_change_expired_vip_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_kills_discord_webhooks_config": {
+      "permission": "'api.can_change_kills_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_log_line_webhook_config": {
+      "permission": "'api.can_change_log_line_discord_webhook_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_log_stream_config": {
+      "permission": "'api.can_change_log_stream_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_name_kick_config": {
+      "permission": "'api.can_change_name_kick_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_rcon_chat_commands_config": {
+      "permission": "'api.can_change_rcon_chat_commands_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_rcon_connection_settings_config": {
+      "permission": "'api.can_change_rcon_connection_settings_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_rcon_server_settings_config": {
+      "permission": "'api.can_change_rcon_server_settings_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_real_vip_config": {
+      "permission": "'api.can_change_real_vip_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_scoreboard_config": {
+      "permission": "'api.can_change_scorebot_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_seed_vip_config": {
+      "permission": "'api.can_change_seed_vip_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_server_name_change_config": {
+      "permission": "'api.can_change_server_name_change_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_standard_broadcast_messages": {
+      "permission": "'api.can_change_standard_broadcast_messages'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_standard_punishments_messages": {
+      "permission": "'api.can_change_standard_punishment_messages'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_standard_welcome_messages": {
+      "permission": "'api.can_change_standard_welcome_messages'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_steam_config": {
+      "permission": "'api.can_change_steam_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_tk_ban_on_connect_config": {
+      "permission": "'api.can_change_tk_ban_on_connect_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_vac_game_bans_config": {
+      "permission": "'api.can_change_vac_game_bans_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_votekick_autotoggle_config": {
+      "permission": "'api.can_change_votekick_autotoggle_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_votemap_config": {
+      "permission": "'api.can_change_votemap_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_watch_killrate_config": {
+      "permission": "'api.can_change_watch_killrate_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "validate_watchlist_discord_webhooks_config": {
+      "permission": "'api.can_change_watchlist_discord_webhooks_config'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "config",
+          "type": "dict[str, Any] | BaseUserConfig | None",
+          "default": "None"
+        },
+        {
+          "name": "reset_to_default",
+          "type": "bool",
+          "default": "False"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    },
+    "watch_player": {
+      "permission": "'api.can_add_player_watch'",
+      "http": "['POST']",
+      "args": [
+        {
+          "name": "player_id",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "reason",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "by",
+          "type": "str",
+          "default": null
+        },
+        {
+          "name": "player_name",
+          "type": "str | None",
+          "default": "None"
+        }
+      ],
+      "returns": "bool",
+      "doc": null,
+      "module": null,
+      "source": "auto"
+    }
+  },
+  "types": {
+    "WindowsStoreIdActionType": {
+      "kind": "Enum",
+      "bases": [
+        "str",
+        "enum.Enum"
+      ],
+      "fields": {
+        "kick": "'KICK'",
+        "temp_ban": "'TEMP BAN'",
+        "perma_ban": "'PERMA BAN'"
+      }
+    },
+    "PlayerStatsEnum": {
+      "kind": "Enum",
+      "bases": [
+        "str",
+        "enum.Enum"
+      ],
+      "fields": {
+        "KILLS": "'kills'",
+        "KILLS_STREAK": "'kills_streak'",
+        "DEATHS": "'deaths'",
+        "DEATHS_WITHOUT_KILL_STREAK": "'deaths_without_kill_streak'",
+        "TEAMKILLS": "'teamkills'",
+        "TEAMKILLS_STREAK": "'teamkills_streak'",
+        "DEATHS_BY_TK": "'deaths_by_tk'",
+        "DEATHS_BY_TK_STREAK": "'deaths_by_tk_streak'",
+        "NB_VOTE_STARTED": "'nb_vote_started'",
+        "NB_VOTED_YES": "'nb_voted_yes'",
+        "NB_VOTED_NO": "'nb_voted_no'",
+        "LONGEST_LIFE_SECS": "'longest_life_secs'",
+        "SHORTEST_LIFE_SECS": "'shortest_life_secs'",
+        "KILL_DEATH_RATIO": "'kill_death_ratio'",
+        "KILLS_PER_MINUTE": "'kills_per_minute'",
+        "DEATHS_PER_MINUTE": "'deaths_per_minute'",
+        "TIME_SECONDS": "'time_seconds'"
+      }
+    },
+    "MessageVariable": {
+      "kind": "Enum",
+      "bases": [
+        "enum.Enum"
+      ],
+      "fields": {
+        "vip_status": "'vip_status'",
+        "vip_expiration": "'vip_expiration'",
+        "server_name": "'server_name'",
+        "server_short_name": "'server_short_name'",
+        "discord_invite_url": "'discord_invite_url'",
+        "admin_ping_trigger_words": "'admin_ping_trigger_words'",
+        "num_online_mods": "'num_online_mods'",
+        "num_ingame_mods": "'num_ingame_mods'",
+        "next_map": "'next_map'",
+        "next_map_id": "'next_map_id'",
+        "map_rotation": "'map_rotation'",
+        "admin_names": "'admin_names'",
+        "owner_names": "'owner_names'",
+        "senior_names": "'senior_names'",
+        "junior_names": "'junior_names'",
+        "vip_names": "'vip_names'",
+        "random_vip_name": "'random_vip_name'",
+        "online_mods": "'online_mods'",
+        "ingame_mods": "'ingame_mods'",
+        "votenextmap_line": "'votenextmap_line'",
+        "votenextmap_noscroll": "'votenextmap_noscroll'",
+        "votenextmap_vertical": "'votenextmap_vertical'",
+        "votenextmap_by_mod_line": "'votenextmap_by_mod_line'",
+        "votenextmap_by_mod_vertical": "'votenextmap_by_mod_vertical'",
+        "votenextmap_by_mod_vertical_all": "'votenextmap_by_mod_vertical_all'",
+        "votenextmap_by_mod_split": "'votenextmap_by_mod_split'",
+        "total_votes": "'votenextmap_line'",
+        "winning_maps_short": "'winning_maps_short'",
+        "winning_maps_all": "'winning_maps_all'",
+        "scrolling_votemap": "'scrolling_votemap'",
+        "top_kills_player_name": "'top_kills_player_name'",
+        "top_kills_player_score": "'top_kills_player_score'",
+        "top_kill_streak_player_name": "'top_kill_streak_player_name'",
+        "top_kill_streak_player_score": "'top_kill_streak_player_score'"
+      }
+    },
+    "MessageVariableContext": {
+      "kind": "Enum",
+      "bases": [
+        "enum.Enum"
+      ],
+      "fields": {
+        "player_name": "'player_name'",
+        "player_id": "'player_id'",
+        "last_victim_player_id": "'last_victim_player_id'",
+        "last_victim_name": "'last_victim_name'",
+        "last_nemesis_player_id": "'last_nemesis_player_id'",
+        "last_nemesis_name": "'last_nemesis_name'",
+        "last_victim_weapon": "'last_victim_weapon'",
+        "last_nemesis_weapon": "'last_nemesis_weapon'",
+        "last_tk_victim_player_id": "'last_tk_victim_player_id'",
+        "last_tk_victim_name": "'last_tk_victim_name'",
+        "last_tk_victim_weapon": "'last_tk_victim_weapon'",
+        "last_tk_nemesis_player_id": "'last_tk_nemesis_player_id'",
+        "last_tk_nemesis_name": "'last_tk_nemesis_name'",
+        "last_tk_nemesis_weapon": "'last_tk_nemesis_weapon'"
+      }
+    },
+    "MostRecentEvents": {
+      "kind": "class",
+      "bases": [],
+      "fields": {
+        "player_name": "str | None",
+        "last_victim_name": "str | None",
+        "last_victim_player_id": "str | None",
+        "last_nemesis_name": "str | None",
+        "last_nemesis_player_id": "str | None",
+        "last_victim_weapon": "str | None",
+        "last_nemesis_weapon": "str | None",
+        "last_tk_victim_name": "str | None",
+        "last_tk_victim_player_id": "str | None",
+        "last_tk_victim_weapon": "str | None",
+        "last_tk_nemesis_name": "str | None",
+        "last_tk_nemesis_player_id": "str | None",
+        "last_tk_nemesis_weapon": "str | None"
+      }
+    },
+    "ServerInfoType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "host": "str | None",
+        "port": "str | None",
+        "password": "str | None"
+      }
+    },
+    "Roles": {
+      "kind": "Enum",
+      "bases": [
+        "str",
+        "enum.Enum"
+      ],
+      "fields": {
+        "commander": "'armycommander'",
+        "squad_lead": "'officer'",
+        "rifleman": "'rifleman'",
+        "engineer": "'engineer'",
+        "medic": "'medic'",
+        "anti_tank": "'antitank'",
+        "automatic_rifleman": "'automaticrifleman'",
+        "assault": "'assault'",
+        "machine_gunner": "'heavymachinegunner'",
+        "support": "'support'",
+        "spotter": "'spotter'",
+        "sniper": "'sniper'",
+        "tank_commander": "'tankcommander'",
+        "crewman": "'crewman'",
+        "artillery_observer": "'artilleryobserver'",
+        "operator": "'operator'",
+        "gunner": "'gunner'"
+      }
+    },
+    "AdminType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_id": "str",
+        "name": "str",
+        "role": "str"
+      }
+    },
+    "StatusType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "str",
+        "map": "'LayerType'",
+        "current_players": "int",
+        "max_players": "int",
+        "short_name": "str",
+        "server_number": "int"
+      }
+    },
+    "VipIdType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_id": "str",
+        "name": "str",
+        "vip_expiration": "datetime.datetime | None"
+      }
+    },
+    "GameServerBanType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "type": "str",
+        "name": "str | None",
+        "player_id": "str | None",
+        "timestamp": "datetime.datetime | None",
+        "ban_time": "str | None",
+        "reason": "str | None",
+        "by": "str | None",
+        "raw": "str"
+      }
+    },
+    "SteamPlayerSummaryType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "avatar": "str",
+        "avatarfull": "str",
+        "avatarhash": "str",
+        "avatarmedium": "str",
+        "communityvisibilitystate": "Literal[1] | Literal[3]",
+        "lastlogoff": "int",
+        "loccityid": "int",
+        "loccountrycode": "str",
+        "locstatecode": "str",
+        "personaname": "str",
+        "personastate": "int",
+        "personastateflags": "int",
+        "primaryclanid": "str",
+        "profilestate": "int",
+        "profileurl": "str",
+        "realname": "str",
+        "steamid": "str",
+        "timecreated": "int"
+      }
+    },
+    "SteamBansType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "SteamId": "str",
+        "CommunityBanned": "bool",
+        "VACBanned": "bool",
+        "NumberOfVACBans": "int",
+        "DaysSinceLastBan": "int",
+        "NumberOfGameBans": "int",
+        "EconomyBan": "str"
+      }
+    },
+    "SteamInfoType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "created": "datetime.datetime",
+        "updated": "datetime.datetime",
+        "profile": "SteamPlayerSummaryType | None",
+        "country": "str | None",
+        "bans": "SteamBansType | None",
+        "has_bans": "bool"
+      }
+    },
+    "PlayerNameType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "name": "str",
+        "player_id": "str",
+        "created": "datetime.datetime",
+        "last_seen": "datetime.datetime"
+      }
+    },
+    "PlayerSessionType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "player_id": "str",
+        "start": "Optional[datetime.datetime]",
+        "end": "Optional[datetime.datetime]",
+        "created": "datetime.datetime"
+      }
+    },
+    "BasicPlayerProfileType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "player_id": "str",
+        "created": "datetime.datetime",
+        "names": "list[PlayerNameType]",
+        "steaminfo": "Optional[SteamInfoType]"
+      }
+    },
+    "BlacklistSyncMethod": {
+      "kind": "Enum",
+      "bases": [
+        "str",
+        "enum.Enum"
+      ],
+      "fields": {
+        "KICK_ONLY": "'kick_only'",
+        "BAN_ON_CONNECT": "'ban_on_connect'",
+        "BAN_IMMEDIATELY": "'ban_immediately'"
+      }
+    },
+    "BlacklistType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "name": "str",
+        "sync": "BlacklistSyncMethod",
+        "servers": "Optional[List[int]]"
+      }
+    },
+    "BlacklistRecordType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "player_id": "str",
+        "reason": "str",
+        "admin_name": "str",
+        "created_at": "datetime.datetime",
+        "expires_at": "Optional[datetime.datetime]",
+        "is_active": "bool"
+      }
+    },
+    "BlacklistWithRecordsType": {
+      "kind": "class",
+      "bases": [
+        "BlacklistType"
+      ],
+      "fields": {
+        "records": "List[BlacklistRecordType]"
+      }
+    },
+    "BlacklistRecordWithBlacklistType": {
+      "kind": "class",
+      "bases": [
+        "BlacklistRecordType"
+      ],
+      "fields": {
+        "blacklist": "BlacklistType"
+      }
+    },
+    "BlacklistRecordWithPlayerType": {
+      "kind": "class",
+      "bases": [
+        "BlacklistRecordWithBlacklistType"
+      ],
+      "fields": {
+        "player": "BasicPlayerProfileType",
+        "formatted_reason": "str"
+      }
+    },
+    "PlayerActionType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "action_type": "str",
+        "reason": "Optional[str]",
+        "by": "Optional[str]",
+        "time": "datetime.datetime"
+      }
+    },
+    "DBLogLineType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "version": "int",
+        "creation_time": "datetime.datetime",
+        "event_time": "datetime.datetime",
+        "type": "Optional[str]",
+        "player1_name": "Optional[str]",
+        "player1_id": "Optional[str]",
+        "player2_name": "Optional[str]",
+        "player2_id": "Optional[str]",
+        "raw": "str",
+        "content": "str",
+        "server": "str",
+        "weapon": "Optional[str]"
+      }
+    },
+    "Player": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "str",
+        "name": "str"
+      }
+    },
+    "PlayerTeamConfidence": {
+      "kind": "Enum",
+      "bases": [
+        "enum.Enum"
+      ],
+      "fields": {
+        "STRONG": "'strong'",
+        "MIXED": "'mixed'"
+      }
+    },
+    "PlayerTeamAssociation": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "side": "Team",
+        "confidence": "PlayerTeamConfidence",
+        "ratio": "float"
+      }
+    },
+    "UnitHistoryEntry": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "ts": "int",
+        "team": "int",
+        "squad": "int",
+        "role": "int"
+      }
+    },
+    "KillInfo": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "action": "Literal['KILL', 'DEATH']",
+        "player_id": "str",
+        "player_name": "str",
+        "ts": "int",
+        "weapon": "str"
+      }
+    },
+    "PlayerStatsType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "player_id": "str",
+        "map_id": "int",
+        "player": "Optional[str]",
+        "platform": "Optional[str]",
+        "steaminfo": "Optional[SteamInfoType]",
+        "kills": "Optional[int]",
+        "kills_streak": "Optional[int]",
+        "kills_by_type": "Optional[dict[WeaponType, int]]",
+        "deaths_by_type": "Optional[dict[WeaponType, int]]",
+        "deaths": "Optional[int]",
+        "deaths_without_kill_streak": "Optional[int]",
+        "teamkills": "Optional[int]",
+        "teamkills_streak": "Optional[int]",
+        "deaths_by_tk": "Optional[int]",
+        "deaths_by_tk_streak": "Optional[int]",
+        "nb_vote_started": "Optional[int]",
+        "nb_voted_yes": "Optional[int]",
+        "nb_voted_no": "Optional[int]",
+        "time_seconds": "Optional[int]",
+        "last_spawn": "Optional[datetime.datetime]",
+        "kills_per_minute": "Optional[float]",
+        "deaths_per_minute": "Optional[float]",
+        "kill_death_ratio": "Optional[float]",
+        "longest_life_secs": "Optional[int]",
+        "shortest_life_secs": "Optional[int]",
+        "combat": "Optional[int]",
+        "offense": "Optional[int]",
+        "defense": "Optional[int]",
+        "support": "Optional[int]",
+        "most_killed": "Optional[dict]",
+        "death_by": "Optional[dict]",
+        "weapons": "Optional[dict]",
+        "death_by_weapons": "Optional[dict]",
+        "team": "Optional[PlayerTeamAssociation]",
+        "units": "Optional[list[UnitHistoryEntry]]",
+        "level": "Optional[int]",
+        "vehicles_destroyed": "Optional[int]",
+        "vehicle_kills": "Optional[int]",
+        "kills_and_assists": "Optional[int]",
+        "deaths_and_redeploys": "Optional[int]",
+        "names": "Optional[list[str]]",
+        "status": "Optional[Literal['online', 'offline', 'idle']]",
+        "encounters": "Optional[PlayerEncounters]"
+      }
+    },
+    "PlayerStat": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "combat": "int",
+        "p_combat": "int",
+        "offense": "int",
+        "p_offense": "int",
+        "defense": "int",
+        "p_defense": "int",
+        "support": "int",
+        "p_support": "int",
+        "vehicle_kills": "int",
+        "p_vehicle_kills": "int",
+        "vehicles_destroyed": "int",
+        "p_vehicles_destroyed": "int",
+        "level": "int",
+        "p_kills_and_assists": "int",
+        "kills_and_assists": "int",
+        "p_deaths_and_redeploys": "int",
+        "deaths_and_redeploys": "int",
+        "units": "Optional[list[UnitHistoryEntry]]",
+        "p_unit": "UnitHistoryEntry",
+        "p_coord": "'WorldPositionType'",
+        "has_spawned": "bool",
+        "names": "list[str]",
+        "status": "Literal['offline', 'online', 'idle']"
+      }
+    },
+    "CachedLiveGameStats": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "snapshot_timestamp": "datetime.datetime",
+        "stats": "list[PlayerStatsType]",
+        "refresh_interval_sec": "int"
+      }
+    },
+    "GameLayout": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "requested": "Sequence[str | int | None]",
+        "set": "list[str]"
+      }
+    },
+    "MapScore": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "ts": "int",
+        "allied_score": "int",
+        "axis_score": "int"
+      }
+    },
+    "MapResult": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "axis": "int",
+        "allied": "int"
+      }
+    },
+    "MapInfo": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "_schema_version": "NotRequired[int]",
+        "name": "str",
+        "start": "int | None",
+        "end": "int | None",
+        "guessed": "bool",
+        "player_stats": "dict[str, PlayerStat]",
+        "game_layout": "GameLayout",
+        "cap_flips": "list[MapScore]",
+        "match_time": "int"
+      }
+    },
+    "MapInfoISODates": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "str",
+        "start": "str | None",
+        "end": "str | None",
+        "guessed": "bool",
+        "player_stats": "dict[str, PlayerStat]"
+      }
+    },
+    "MapsType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "creation_time": "datetime.datetime",
+        "start": "datetime.datetime",
+        "end": "Optional[datetime.datetime]",
+        "server_number": "Optional[int]",
+        "map_name": "str",
+        "result": "Optional[MapResult]",
+        "game_layout": "GameLayout",
+        "player_stats": "List[PlayerStatsType]",
+        "cap_flips": "list[MapScore]"
+      }
+    },
+    "PlayerCommentType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "player_id": "str",
+        "creation_time": "datetime.datetime",
+        "by": "Optional[str]",
+        "content": "str"
+      }
+    },
+    "PlayerAtCountType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_id": "str",
+        "name": "str",
+        "vip": "Optional[bool]"
+      }
+    },
+    "ServerCountType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "server_number": "Optional[int]",
+        "minute": "datetime.datetime",
+        "count": "int",
+        "players": "List[PlayerAtCountType]",
+        "map": "str",
+        "vip_count": "int"
+      }
+    },
+    "AdminUserType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "username": "str",
+        "player_id": "str"
+      }
+    },
+    "AuditLogType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "username": "str",
+        "creation_time": "datetime.datetime",
+        "command": "str",
+        "command_arguments": "Optional[str]",
+        "command_result": "Optional[str]"
+      }
+    },
+    "PlayerActionState": {
+      "kind": "Enum",
+      "bases": [
+        "enum.Enum"
+      ],
+      "fields": {
+        "KICK": "0",
+        "PUNISH": "1",
+        "TEMPBAN": "2",
+        "PERMABAN": "3",
+        "MESSAGE": "4"
+      }
+    },
+    "PenaltyCountType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "KICK": "int",
+        "PUNISH": "int",
+        "TEMPBAN": "int",
+        "PERMABAN": "int"
+      }
+    },
+    "PlayerFlagType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "flag": "str",
+        "comment": "Optional[str]",
+        "modified": "datetime.datetime"
+      }
+    },
+    "PlayerOptinsType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "optin_name": "str",
+        "optin_value": "Optional[str]",
+        "modified": "datetime.datetime"
+      }
+    },
+    "WatchListType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "modified": "datetime.datetime",
+        "player_id": "str",
+        "is_watched": "bool",
+        "reason": "str",
+        "by": "str",
+        "count": "int"
+      }
+    },
+    "UserConfigType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "key": "str",
+        "value": "str"
+      }
+    },
+    "PlayerVIPType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "server_number": "int",
+        "expiration": "datetime.datetime"
+      }
+    },
+    "PlayerSoldierType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "eos_id": "Optional[str]",
+        "name": "Optional[str]",
+        "level": "int",
+        "platform": "Optional[str]",
+        "clan_tag": "Optional[str]",
+        "updated": "datetime.datetime"
+      }
+    },
+    "PlayerAccountType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "Optional[str]",
+        "discord_id": "Optional[str]",
+        "is_member": "bool",
+        "country": "Optional[str]",
+        "lang": "str",
+        "updated": "datetime.datetime"
+      }
+    },
+    "PlayerProfileType": {
+      "kind": "class",
+      "bases": [
+        "BasicPlayerProfileType"
+      ],
+      "fields": {
+        "sessions": "list[PlayerSessionType]",
+        "sessions_count": "int",
+        "total_playtime_seconds": "int",
+        "current_playtime_seconds": "int",
+        "received_actions": "list[PlayerActionType]",
+        "penalty_count": "PenaltyCountType",
+        "blacklists": "list[BlacklistRecordWithBlacklistType]",
+        "is_blacklisted": "bool",
+        "flags": "list[PlayerFlagType]",
+        "watchlist": "Optional[WatchListType]",
+        "is_watched": "bool",
+        "vips": "Optional[list[PlayerVIPType]]",
+        "is_vip": "bool",
+        "soldier": "PlayerSoldierType",
+        "account": "PlayerAccountType"
+      }
+    },
+    "PlayerProfileTypeEnriched": {
+      "kind": "class",
+      "bases": [
+        "PlayerProfileType"
+      ],
+      "fields": {
+        "bans": "list[GameServerBanType]",
+        "comments": "list[PlayerCommentType]"
+      }
+    },
+    "GetDetailedPlayer": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "str",
+        "player_id": "str",
+        "profile": "PlayerProfileType | None",
+        "is_vip": "bool",
+        "unit_id": "Optional[int]",
+        "unit_name": "Optional[str]",
+        "loadout": "Optional[str]",
+        "team": "Optional[str]",
+        "faction": "Optional[str]",
+        "role": "Optional[str]",
+        "kills": "int",
+        "deaths": "int",
+        "team_kills": "int",
+        "vehicle_kills": "int",
+        "vehicles_destroyed": "int",
+        "combat": "int",
+        "offense": "int",
+        "defense": "int",
+        "support": "int",
+        "level": "int",
+        "platform": "str",
+        "eos_id": "str",
+        "world_position": "dict[str, float]",
+        "clan_tag": "str",
+        "map_playtime_seconds": "int"
+      }
+    },
+    "GetDetailedPlayers": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "players": "dict[str, GetDetailedPlayer]",
+        "fail_count": "int"
+      }
+    },
+    "GetPlayersType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "str",
+        "player_id": "str",
+        "platform": "NotRequired[str | None]",
+        "country": "str | None",
+        "steam_bans": "Optional[SteamBansType]",
+        "is_vip": "bool",
+        "profile": "PlayerProfileType | None"
+      }
+    },
+    "StructuredLogLineType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "action": "str",
+        "player_name_1": "str | None",
+        "player_id_1": "str | None",
+        "player_name_2": "str | None",
+        "player_id_2": "str | None",
+        "weapon": "str | None",
+        "message": "str",
+        "sub_content": "str | None"
+      }
+    },
+    "StructuredLogLineWithMetaData": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "version": "int",
+        "timestamp_ms": "int",
+        "event_time": "datetime.datetime",
+        "relative_time_ms": "float | None",
+        "raw": "str",
+        "line_without_time": "str | None",
+        "action": "str",
+        "player_name_1": "str | None",
+        "player_id_1": "str | None",
+        "player_name_2": "str | None",
+        "player_id_2": "str | None",
+        "weapon": "str | None",
+        "message": "str",
+        "sub_content": "str | None"
+      }
+    },
+    "ParsedLogsType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "actions": "list[str]",
+        "players": "list[str]",
+        "logs": "list[StructuredLogLineWithMetaData]"
+      }
+    },
+    "GameStateType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "num_allied_players": "int",
+        "num_axis_players": "int",
+        "allied_score": "int",
+        "axis_score": "int",
+        "allied_faction": "int",
+        "axis_faction": "int",
+        "allied_faction_id": "int",
+        "axis_faction_id": "int",
+        "allied_morale": "int",
+        "axis_morale": "int",
+        "initial_morale": "int",
+        "raw_time_remaining": "str",
+        "time_remaining": "datetime.timedelta",
+        "current_map": "'LayerType'",
+        "next_map": "'LayerType'",
+        "game_mode": "GameMode",
+        "queue_count": "int",
+        "max_queue_count": "int",
+        "vip_queue_count": "int",
+        "max_vip_queue_count": "int",
+        "match_time": "int",
+        "server_name": "str"
+      }
+    },
+    "VACGameBansConfigType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "ban_on_vac_history_days": "int",
+        "max_game_ban_threshold": "int",
+        "ban_on_vac_history_reason": "str",
+        "whitelist_flags": "list[str]"
+      }
+    },
+    "VipId": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_id": "str",
+        "name": "str"
+      }
+    },
+    "VoteMapVote": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_id": "str",
+        "player_name": "str",
+        "map_id": "str",
+        "vote_count": "int"
+      }
+    },
+    "VoteMapVoter": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_id": "str",
+        "player_name": "str",
+        "count": "int"
+      }
+    },
+    "VoteMapMapResult": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "map": "Layer",
+        "voters": "list[VoteMapVoter]",
+        "votes_count": "int"
+      }
+    },
+    "VoteMapPlayerChoice": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "player_name": "str",
+        "player_id": "str"
+      }
+    },
+    "VoteMapStatus": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "enabled": "bool",
+        "paused": "bool",
+        "results": "list[VoteMapMapResult]",
+        "next_map": "Optional[str]",
+        "last_reminder": "Optional[datetime.datetime]",
+        "player_choice": "Optional[VoteMapPlayerChoice]"
+      }
+    },
+    "VoteMapHistoryResult": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "map_id": "str",
+        "votes_count": "int"
+      }
+    },
+    "VoteMapHistory": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "ts": "int",
+        "map_id": "str",
+        "results": "list[VoteMapHistoryResult]"
+      }
+    },
+    "AllLogTypes": {
+      "kind": "Enum",
+      "bases": [
+        "str",
+        "enum.Enum"
+      ],
+      "fields": {
+        "admin": "'ADMIN'",
+        "admin_anti_cheat": "'ADMIN ANTI-CHEAT'",
+        "admin_banned": "'ADMIN BANNED'",
+        "admin_idle": "'ADMIN IDLE'",
+        "admin_kicked": "'ADMIN KICKED'",
+        "admin_misc": "'ADMIN MISC'",
+        "admin_perma_banned": "'ADMIN PERMA BANNED'",
+        "allies_chat": "'CHAT[Allies]'",
+        "allies_team_chat": "'CHAT[Allies][Team]'",
+        "allies_unit_chat": "'CHAT[Allies][Unit]'",
+        "axis_chat": "'CHAT[Axis]'",
+        "axis_team_chat": "'CHAT[Axis][Team]'",
+        "axis_unit_chat": "'CHAT[Axis][Unit]'",
+        "camera": "'CAMERA'",
+        "chat": "'CHAT'",
+        "connected": "'CONNECTED'",
+        "disconnected": "'DISCONNECTED'",
+        "kill": "'KILL'",
+        "match": "'MATCH'",
+        "match_end": "'MATCH ENDED'",
+        "match_start": "'MATCH START'",
+        "team_kill": "'TEAM KILL'",
+        "team_switch": "'TEAMSWITCH'",
+        "tk": "'TK'",
+        "tk_auto": "'TK AUTO'",
+        "tk_auto_banned": "'TK AUTO BANNED'",
+        "tk_auto_kicked": "'TK AUTO KICKED'",
+        "vote": "'VOTE'",
+        "vote_completed": "'VOTE COMPLETED'",
+        "vote_expired": "'VOTE EXPIRED'",
+        "vote_passed": "'VOTE PASSED'",
+        "vote_started": "'VOTE STARTED'"
+      }
+    },
+    "PublicInfoMapType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "map": "LayerType",
+        "start": "float | None"
+      }
+    },
+    "PublicInfoPlayerType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "allied": "int",
+        "axis": "int"
+      }
+    },
+    "PublicInfoScoreType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "allied": "int",
+        "axis": "int"
+      }
+    },
+    "PublicInfoNameType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "str",
+        "short_name": "str",
+        "public_stats_port": "int | None",
+        "public_stats_port_https": "int | None"
+      }
+    },
+    "ServerConfigType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "build_number": "str",
+        "build_revision": "str",
+        "password_protected": "bool",
+        "server_name": "str",
+        "supported_platforms": "list[str]"
+      }
+    },
+    "PublicInfoType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "current_map": "PublicInfoMapType",
+        "next_map": "PublicInfoMapType",
+        "player_count": "int",
+        "max_player_count": "int",
+        "player_count_by_team": "PublicInfoPlayerType",
+        "score": "PublicInfoScoreType",
+        "time_remaining": "float",
+        "vote_status": "VoteMapStatus",
+        "name": "PublicInfoNameType",
+        "config": "ServerConfigType",
+        "cap_flips": "list[MapScore]",
+        "match_time": "int"
+      }
+    },
+    "SlotsType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "current_players": "int",
+        "max_players": "int"
+      }
+    },
+    "DjangoPermission": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "permission": "str",
+        "description": "str"
+      }
+    },
+    "DjangoGroup": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "name": "str"
+      }
+    },
+    "DjangoUserPermissions": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "permissions": "list[DjangoPermission]",
+        "groups": "list[DjangoGroup]",
+        "is_superuser": "bool",
+        "username": "str",
+        "player_id": "str"
+      }
+    },
+    "MessageTemplateCategory": {
+      "kind": "Enum",
+      "bases": [
+        "enum.StrEnum"
+      ],
+      "fields": {
+        "AUTO_SETTINGS": "'AUTO_SETTINGS'",
+        "BROADCAST": "'BROADCAST'",
+        "MESSAGE": "'MESSAGE'",
+        "REASON": "'REASON'",
+        "WELCOME": "'WELCOME'"
+      }
+    },
+    "MessageTemplateType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "id": "int",
+        "title": "str",
+        "content": "str",
+        "category": "MessageTemplateCategory",
+        "created_at": "datetime.datetime",
+        "updated_at": "datetime.datetime",
+        "updated_by": "str"
+      }
+    },
+    "AllMessageTemplateTypes": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "AUTO_SETTINGS": "list[MessageTemplateType]",
+        "BROADCAST": "list[MessageTemplateType]",
+        "MESSAGE": "list[MessageTemplateType]",
+        "REASON": "list[MessageTemplateType]",
+        "WELCOME": "list[MessageTemplateType]"
+      }
+    },
+    "MapSequenceResponse": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "maps": "list[str]",
+        "current_index": "int"
+      }
+    },
+    "GetMapSequence": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "maps": "list[Layer]",
+        "current_index": "int"
+      }
+    },
+    "MapRotationResponse": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "maps": "list[str]",
+        "current_index": "int"
+      }
+    },
+    "GetMapRotation": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "maps": "list[Layer]",
+        "current_index": "int",
+        "next_index": "int"
+      }
+    },
+    "ScoreDataType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "cOMBAT": "int",
+        "offense": "int",
+        "defense": "int",
+        "support": "int"
+      }
+    },
+    "StatsDataType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "teamKills": "int",
+        "vehicleKills": "int",
+        "vehiclesDestroyed": "int",
+        "infantryKills": "int",
+        "deaths": "int"
+      }
+    },
+    "WorldPositionType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "x": "float",
+        "y": "float",
+        "z": "float"
+      }
+    },
+    "PlayerInfoType": {
+      "kind": "TypedDict",
+      "bases": [
+        "TypedDict"
+      ],
+      "fields": {
+        "iD": "str",
+        "team": "int",
+        "role": "int",
+        "level": "int",
+        "loadout": "str",
+        "name": "str",
+        "platoon": "str",
+        "platoonIndex": "int",
+        "scoreData": "ScoreDataType",
+        "stats": "StatsDataType",
+        "platform": "str",
+        "clanTag": "str",
+        "eosId": "str",
+        "worldPosition": "WorldPositionType"
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@app/rcon-core",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "tsc -b && tsc -p tsconfig.test.json && node --test --experimental-strip-types test/*.ts"
+  },
+  "dependencies": {
+    "@app/events": "workspace:*",
+    "@app/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "typescript": "^5.6.0"
+  }
+}

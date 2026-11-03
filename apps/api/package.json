@@ -1,0 +1,37 @@
+{
+  "name": "@app/api",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "tsc -b && tsc -p tsconfig.test.json && node --test --experimental-strip-types test/*.ts",
+    "start": "node dist/index.js",
+    "discord:register": "node dist/discord-register.js",
+    "dev": "node --experimental-strip-types --watch src/index.ts"
+  },
+  "dependencies": {
+    "@app/access": "workspace:*",
+    "@app/bus": "workspace:*",
+    "@app/db": "workspace:*",
+    "@app/ingest": "workspace:*",
+    "@app/plugin-sdk": "workspace:*",
+    "@app/rcon-core": "workspace:*",
+    "@app/shared": "workspace:*",
+    "@app/widgets": "workspace:*",
+    "@app/rules": "workspace:*",
+    "@app/maps": "workspace:*",
+    "@app/schedule": "workspace:*",
+    "@app/games": "workspace:*",
+    "@app/payout": "workspace:*"
+  },
+  "devDependencies": {
+    "@app/plugin-killfeed": "workspace:*",
+    "@types/node": "^22.7.0",
+    "typescript": "^5.6.0"
+  }
+}

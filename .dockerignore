@@ -1,0 +1,58 @@
+# What NOT to ship to the Docker daemon when building the image.
+#
+# The build context is the repo ROOT (infra/docker-compose.yml sets `context: ..`), and without
+# this file `COPY . .` sent every byte under it on EVERY build — measured at 3.7 GB of repo before
+# counting anything the operator had put there. On a Docker Desktop host that transfer crosses a VM
+# boundary, so it was minutes of waiting before the first command in the image even ran.
+#
+# The big one is not obvious: `crcon-db-data` is the folder the import runbook tells you to paste a
+# multi-gigabyte CRCON backup into, and it lives at the repo root — inside the context. It reached
+# the daemon on every rebuild despite the image having no use for it (the container reads it as a
+# read-only bind mount at RUN time, never at BUILD time).
+#
+# Everything listed here is either regenerated inside the image or irrelevant to it.
+
+# Dependencies + build caches — reinstalled and rebuilt in the image.
+node_modules
+**/node_modules
+.turbo
+**/.turbo
+
+# Build outputs — `pnpm build` produces these inside the image; a host copy would only shadow them.
+**/dist
+# The compiler's incremental record of a build on THIS machine. Copied in without the dist/ it
+# describes, `tsc -b` reads it as up to date, emits nothing, and every dependent package then fails
+# with "Cannot find module '@app/…'" — on any checkout that has ever been built outside Docker.
+**/*.tsbuildinfo
+apps/panel/.next
+apps/panel/out
+
+# The operator's pasted CRCON backup (see docs/crcon-db-import.md). Bind-mounted at run time,
+# never built into anything, and the largest thing in the context by far.
+crcon-db-data
+
+# The app's OWN backups — full-backup archives and trim archives. The compose default
+# (BACKUPS_DIR: ../backups, relative to infra/) puts this folder at the repo root, inside the
+# context, and unlike crcon-db-data it GROWS BY ITSELF: every "Create full backup now" press and
+# every trim adds an archive, so a healthy long-running install crept toward a multi-gigabyte
+# context transfer on every rebuild — measured at 4 GB on a live install — for a folder the
+# build never reads (it is a run-time bind mount, exactly like the CRCON seed above).
+backups
+
+# Source control and local noise.
+.git
+.gitignore
+.github
+.claude
+*.log
+.DS_Store
+
+# Secrets must never reach an image layer — infra/.env holds live RCON and database passwords.
+# (Compose passes it with --env-file at run time; the build has no business seeing it.)
+infra/.env
+**/.env
+!infra/.env.example
+
+# Installed plugins: bind-mounted into the api container at run time (installed-plugins/README.md),
+# never built into the image.
+installed-plugins

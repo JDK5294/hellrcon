@@ -1,0 +1,45 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+.next/
+out/
+*.tsbuildinfo
+.turbo/
+.turbo/cache/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+!infra/.env.example
+
+# data & runtime
+data/
+*.db
+*.sqlite
+
+# logs
+*.log
+logs/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Next.js generated types
+next-env.d.ts
+
+# A pasted CRCON backup's database (multi-gigabyte, and it is your data, not the app's).
+crcon-db-data/
+
+# Full backups + trim archives, bind-mounted from the api/worker containers (same reasoning).
+backups/
+
+# Plugins the operator installs (installed-plugins/README.md): each is a repository of its own.
+installed-plugins/*
+!installed-plugins/README.md

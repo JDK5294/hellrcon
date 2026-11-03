@@ -1,0 +1,26 @@
+# The panel on your own domain, with HTTPS — Administration → Online access → Your own domain.
+#
+# Runs only on the `domain` profile, which a VM install turns on (install.sh). Nothing here names
+# the domain: it is set in the panel, and a certificate is fetched from Let's Encrypt the first
+# time each address is visited — only for the addresses the panel says are its own (the ask
+# below), so a stranger's hostname pointed at this server gets no certificate.
+{
+	on_demand_tls {
+		ask http://api:8080/api/online/tls-ask
+	}
+}
+
+https:// {
+	tls {
+		on_demand
+	}
+	reverse_proxy api:8080 {
+		# Who the visitor is comes from Caddy alone: only Cloudflare's tunnel may set this header,
+		# and nobody reaching the server directly can borrow it to dodge the sign-in limits.
+		header_up -Cf-Connecting-Ip
+	}
+}
+
+http:// {
+	redir https://{host}{uri} permanent
+}

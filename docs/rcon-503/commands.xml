@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Rcon>
+  <Commands>
+    <Command name="Admin Log" messagetemplate="showlog {0} {1}" >
+      <Parameter hint="Number of minutes to backgrack" type="int" />
+      <Parameter hint="Optional phrase to filter results" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Map Change" messagetemplate="map {0}" >
+      <Parameter hint="Mapname" type="string" usegetter="MapsInRotation" />
+    </Command>
+    <Command name="Set Server Message" messagetemplate="say {0}" >
+      <Parameter hint="Message" type="string" />
+    </Command>
+    <Command name="Punish" messagetemplate="punish {0} {1}" >
+      <Parameter hint="Player to punish by killing" type="string" quoted="true" usegetter="PlayerNames" />
+      <Parameter hint="Reason" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Kick" messagetemplate="kick {0} {1}" >
+      <Parameter hint="Player to kick" type="string" quoted="true" usegetter="PlayerNames" />
+      <Parameter hint="Reason" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Set Kick Idle Time" messagetemplate="setkickidletime {0}" >
+      <Parameter hint="Time in minutes (0 to disable)" type="int" usegetter="IdleTime" />
+    </Command>
+    <Command name="Set High Ping Threshold" messagetemplate="sethighping {0}" >
+      <Parameter hint="Ping in milliseconds (0 to disable)" type="int" usegetter="HighPing" />
+    </Command>
+    <Command name="Temporary Ban By Name" messagetemplate="tempban {0} {1} {2} {3}" >
+      <Parameter hint="Player to ban " type="string" quoted="true" usegetter="PlayerNames" />
+      <Parameter hint="Duration (hours)" type="int" />
+      <Parameter hint="Reason" type="string" quoted="true" optional="true" />
+      <Parameter hint="Admin name" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Temporary Ban By Steam 64 ID" messagetemplate="tempban {0} {1} {2} {3}" >
+      <Parameter hint="Steam 64 ID" type="string" quoted="true" />
+      <Parameter hint="Duration (hours)" type="int" />
+      <Parameter hint="Reason" type="string" quoted="true" optional="true" />
+      <Parameter hint="Admin name" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Remove Temporary Ban" messagetemplate="pardontempban {0}" >
+      <Parameter hint="Player to unban" type="string" usegetter="TempBans" />
+    </Command>
+    <Command name="Permanent Ban By Name" messagetemplate="permaban {0} {1} {2}" >
+      <Parameter hint="Player to ban" type="string" quoted="true" usegetter="PlayerNames" />
+      <Parameter hint="Reason" type="string" quoted="true" optional="true" />
+      <Parameter hint="Admin name" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Permanent Ban By Steam 64 ID" messagetemplate="permaban {0} {1} {2}" >
+      <Parameter hint="Steam 64 ID" type="string" quoted="true" />
+      <Parameter hint="Reason" type="string" quoted="true" optional="true" />
+      <Parameter hint="Admin name" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Remove Permanent Ban" messagetemplate="pardonpermaban {0}" >
+      <Parameter hint="Player to unban" type="string" usegetter="PermaBans" />
+    </Command>
+    <Command name="List Maps In Rotation" messagetemplate="rotlist" >
+    </Command>
+    <Command name="List Current Map Sequence" messagetemplate="listcurrentmapsequence" >
+    </Command>
+    <Command name="Add Map To Rotation" messagetemplate="rotadd {0} {1}" >
+      <Parameter hint="Add Map" type="string" usegetter="MapsForRotation" />
+      <Parameter hint="After" type="string" usegetter="MapsInRotation" optional="true" />
+    </Command>
+    <Command name="Remove Map From Rotation" messagetemplate="rotdel {0}" >
+      <Parameter hint="Map Name" type="string" usegetter="MapsInRotation" />
+    </Command>
+    <Command name="Query Map Shuffle" messagetemplate="querymapshuffle" >
+    </Command>
+    <Command name="Toggle Map Shuffle" messagetemplate="togglemapshuffle" >
+    </Command>
+    <Command name="Get Player Info" messagetemplate="playerinfo {0}" >
+      <Parameter hint="Player to get info for" type="string" usegetter="PlayerNames" />
+    </Command>
+    <Command name="Set Auto Balance" messagetemplate="setautobalanceenabled {0}" >
+      <Parameter hint="Team auto balance" type="bool" usegetter="AutoBalanceEnabled" />
+    </Command>
+    <Command name="Set Auto Balance Threshold" messagetemplate="setautobalancethreshold {0}" >
+      <Parameter hint="Max team advantage when players can still join it (e.g. 2):" type="int" usegetter="AutoBalanceThreshold" />
+    </Command>
+    <Command name="Set Team Switch Cooldown" messagetemplate="setteamswitchcooldown {0}" >
+      <Parameter hint="Team switch cooldown in minutes:" type="int" usegetter="TeamSwitchCooldown" />
+    </Command>
+    <Command name="Switch Teams On Death" messagetemplate="switchteamondeath {0}" >
+      <Parameter hint="Player to switch teams on death" type="string" usegetter="PlayerNames" />
+    </Command>
+    <Command name="Switch Teams Now" messagetemplate="switchteamnow {0}" >
+      <Parameter hint="Player to switch teams" type="string" usegetter="PlayerNames" />
+    </Command>
+    <Command name="Set Max Queued Players" messagetemplate="setmaxqueuedplayers {0}" >
+      <Parameter hint="Number of players (1-6)" type="int" usegetter="MaxQueuedPlayers" />
+    </Command>
+    <Command name="Set Num VIP Slots" messagetemplate="setnumvipslots {0}" >
+      <Parameter hint="Number of slots" type="int" usegetter="NumVipSlots" />
+    </Command>
+    <Command name="Broadcast" messagetemplate="broadcast {0}" >
+      <Parameter hint="Message (leave empty to clear the last broadcast)" type="string" quoted="false" optional="true" />
+    </Command>
+    <Command name="Add Admin" messagetemplate="adminadd {0} {1} {2}" >
+      <Parameter hint="Steam 64ID" type="string" quoted="true" />
+      <Parameter hint="Admin group name" type="string" quoted="true" usegetter="AdminGroups" />
+      <Parameter hint="Comment" type="string" quoted="true" optional="true" />
+    </Command>
+    <Command name="Delete Admin" messagetemplate="admindel {0}" >
+      <Parameter hint="Steam 64ID" type="string" usegetter="AdminIds" />
+    </Command>
+    <Command name="Add VIP Player" messagetemplate="vipadd {0} {1}" >
+      <Parameter hint="Steam 64ID" type="string" quoted="true" />
+      <Parameter hint="Description" type="string" quoted="true" />
+    </Command>
+    <Command name="Delete VIP Player" messagetemplate="vipdel {0}" >
+      <Parameter hint="Steam 64ID" type="string" usegetter="VipIds" />
+    </Command>
+    <Command name="Ban Profanity Words" messagetemplate="banprofanity {0}" >
+      <Parameter hint="Comma-separated words" type="string" />
+    </Command>
+    <Command name="Unban Profanity Word" messagetemplate="unbanprofanity {0}" >
+      <Parameter hint="Word to unban" type="string" usegetter="ProfanityWords" />
+    </Command>
+    <Command name="Set Vote Kick Enabled" messagetemplate="setvotekickenabled {0}" >
+      <Parameter hint="Vote Kick" type="bool" usegetter="VoteKickEnabled"/>
+    </Command>
+    <Command name="Set Vote Kick Threshold" messagetemplate="setvotekickthreshold {0}" >
+      <Parameter hint="Format: player count,threshold,count,threshold,..." type="string" usegetter="VoteKickThreshold" />
+    </Command>
+    <Command name="Reset Vote Kick Threshold" messagetemplate="resetvotekickthreshold" >
+    </Command>
+    <Command name ="Message Player" messagetemplate="message {0} {1}">
+      <Parameter hint="Player" type="string" usegetter="PlayerNames" />
+      <Parameter hint="Message" type="string" />
+    </Command>
+    <Command name="Get GameState" messagetemplate="get gamestate" />
+    <Command name="Game Modifiers" messagetemplate="gamemodifiers {0} {1}" hiddenInRelease="true">
+      <Parameter hint="Damage Multiplier" type="string" />
+      <Parameter hint="Max Player Speed Multiplier" type="string"/>
+    </Command>
+    <Command name="Game Layout" messagetemplate="gamelayout {0} {1} {2} {3} {4}" gameModeCompatibility="IntenseWarfare,OffensiveWarfare">
+      <Parameter hint="Sector 1" type="string" quoted="true" usegetter="ObjectiveRow_0" />
+      <Parameter hint="Sector 2" type="string" quoted="true" usegetter="ObjectiveRow_1" />
+      <Parameter hint="Sector 3" type="string" quoted="true" usegetter="ObjectiveRow_2" />
+      <Parameter hint="Sector 4" type="string" quoted="true" usegetter="ObjectiveRow_3" />
+      <Parameter hint="Sector 5" type="string" quoted="true" usegetter="ObjectiveRow_4" />
+    </Command>
+  </Commands>
+  <Getters>
+    <Get name="Name" messagetemplate="get name" autorefresh="true" showinserverinfoas="Name" />
+    <Get name="Map" messagetemplate="get map" autorefresh="true" showinserverinfoas="Mapname" />
+    <Get name="Slots" messagetemplate="get slots" autorefresh="true" showinserverinfoas="Playing" />
+    <Get name="GameMode" messagetemplate="get gamemode" autorefresh="true" showinserverinfoas="GameMode"/>
+    <Get name="PlayerNames" messagetemplate="get players" isarray="true" />
+    <Get name="AdminIds" messagetemplate="get adminids" isarray="true" />
+    <Get name="VipIds" messagetemplate="get vipids" isarray="true" />
+    <Get name="AdminGroups" messagetemplate="get admingroups" isarray="true" />
+    <Get name="TempBans" messagetemplate="get tempbans" isarray="true" />
+    <Get name="PermaBans" messagetemplate="get permabans" isarray="true" />
+    <Get name="MapsForRotation" messagetemplate="get mapsforrotation" isarray="true" />
+    <Get name="MapsInRotation" messagetemplate="get mapsinrotation" isarray="true" />
+    <Get name="TeamSwitchCooldown" messagetemplate="get teamswitchcooldown" />
+    <Get name="AutoBalanceEnabled" messagetemplate="get autobalanceenabled" />
+    <Get name="AutoBalanceThreshold" messagetemplate="get autobalancethreshold" />
+    <Get name="IdleTime" messagetemplate="get idletime" />
+    <Get name="HighPing" messagetemplate="get highping" />
+    <Get name="MaxQueuedPlayers" messagetemplate="get maxqueuedplayers" />
+    <Get name="NumVipSlots" messagetemplate="get numvipslots" />
+    <Get name="ProfanityWords" messagetemplate="get profanity" isarray="true" />
+    <Get name="VoteKickEnabled" messagetemplate="get votekickenabled" />
+    <Get name="VoteKickThreshold" messagetemplate="get votekickthreshold" />
+    <Get name="ObjectiveRow_0" messagetemplate="get objectiverow_0" isarray="true" />
+    <Get name="ObjectiveRow_1" messagetemplate="get objectiverow_1" isarray="true" />
+    <Get name="ObjectiveRow_2" messagetemplate="get objectiverow_2" isarray="true" />
+    <Get name="ObjectiveRow_3" messagetemplate="get objectiverow_3" isarray="true" />
+    <Get name="ObjectiveRow_4" messagetemplate="get objectiverow_4" isarray="true" />
+  </Getters>
+</Rcon>

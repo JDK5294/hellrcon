@@ -1,0 +1,15 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    // The parity suites are this package's whole point, so DATABASE_URL is part of the tests'
+    // behaviour and must be part of the cache key — without it, turbo both strips the variable
+    // (silently skipping every { skip: !DB } test) and replays that DB-less "pass" for runs that
+    // do have a database. ENCRYPTION_KEY changes how secrets are sealed at rest, same reasoning.
+    // The parity suites assume a FRESH database: recreate the parity DB before a battery run.
+    "test": {
+      "dependsOn": ["^build"],
+      "env": ["DATABASE_URL", "ENCRYPTION_KEY"]
+    }
+  }
+}

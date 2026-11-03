@@ -1,0 +1,45 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "references": [
+    {
+      "path": "../../packages/shared"
+    },
+    {
+      "path": "../../packages/access"
+    },
+    {
+      "path": "../../packages/bus"
+    },
+    {
+      "path": "../../packages/db"
+    },
+    {
+      "path": "../../packages/ingest"
+    },
+    {
+      "path": "../../packages/rcon-core"
+    },
+    {
+      "path": "../../packages/widgets"
+    },
+    {
+      "path": "../../packages/plugin-sdk"
+    },
+    {
+      "path": "../../plugins/example-killfeed"
+    },
+    { "path": "../../packages/rules" },
+    { "path": "../../packages/maps" },
+    { "path": "../../packages/schedule" },
+    {
+      "path": "../../packages/games"
+    }
+  ],
+  "include": [
+    "src"
+  ]
+}
